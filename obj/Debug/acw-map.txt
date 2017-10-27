@@ -1,0 +1,8 @@
+BlankDroid.MainActivity, BlankDroid;md57af922a912a9c1d2e90b297c1016fe19.MainActivity
+BlankDroid.MainActivity, BlankDroid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57af922a912a9c1d2e90b297c1016fe19.MainActivity
+BlankDroid.MainActivity;md57af922a912a9c1d2e90b297c1016fe19.MainActivity
+blankdroid.MainActivity;md57af922a912a9c1d2e90b297c1016fe19.MainActivity
+BlankDroid.WaveformView, BlankDroid;md57af922a912a9c1d2e90b297c1016fe19.WaveformView
+BlankDroid.WaveformView, BlankDroid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57af922a912a9c1d2e90b297c1016fe19.WaveformView
+BlankDroid.WaveformView;md57af922a912a9c1d2e90b297c1016fe19.WaveformView
+blankdroid.WaveformView;md57af922a912a9c1d2e90b297c1016fe19.WaveformView
