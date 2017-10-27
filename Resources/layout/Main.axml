@@ -1,38 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.v4.view.ViewPager
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewpager"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
-        android:id="@+id/start"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Recording" />
-    <Button
-        android:id="@+id/stop"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="Stop Recording" />
-    <Button
-        android:id="@+id/startPlaying"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Playing" />
-    <Button
-        android:id="@+id/stopPlaying"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="Stop Playing" />
-  <Button
-        android:id="@+id/updateWaveform"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:enabled="true"
-        android:text="Update Waveform" />
-    <BlankDroid.WaveformView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/waveformView" />
-</LinearLayout>
+    android:layout_height="match_parent" >
+
+  <android.support.v4.view.PagerTabStrip
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="top"
+      android:paddingBottom="10dp"
+      android:paddingTop="10dp"
+      android:textColor="#fff" />
+</android.support.v4.view.ViewPager>

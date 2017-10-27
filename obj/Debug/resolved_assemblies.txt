@@ -5,6 +5,13 @@ C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Deb
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\System.dll
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\System.Xml.dll
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\mscorlib.dll
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\Xamarin.Android.Support.Annotations.dll
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\Xamarin.Android.Support.Compat.dll
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\Xamarin.Android.Support.Core.UI.dll
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\Xamarin.Android.Support.Core.Utils.dll
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\Xamarin.Android.Support.Fragment.dll
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\Xamarin.Android.Support.Media.Compat.dll
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\Xamarin.Android.Support.v4.dll
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\System.Runtime.dll
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\System.ComponentModel.Composition.dll
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\System.Threading.dll

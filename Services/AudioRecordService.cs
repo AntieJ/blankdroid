@@ -36,6 +36,11 @@ namespace BlankDroid.Services
 
         private async Task ReadAudioAsync()
         {
+            if (!Directory.Exists(ConfigService.BaseDirectory))
+            {
+                Directory.CreateDirectory(ConfigService.BaseDirectory);
+            }
+
             using (var fileStream = new FileStream(ConfigService.PathToRecording, FileMode.Create, FileAccess.Write))
             {
                 while (true)

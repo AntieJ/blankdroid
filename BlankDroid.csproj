@@ -21,6 +21,8 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -52,10 +54,37 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
+    <Reference Include="Xamarin.Android.Support.Annotations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.Annotations.26.0.2\lib\MonoAndroid80\Xamarin.Android.Support.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.Compat, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.Compat.26.0.2\lib\MonoAndroid80\Xamarin.Android.Support.Compat.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.Core.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.Core.UI.26.0.2\lib\MonoAndroid80\Xamarin.Android.Support.Core.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.Core.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.Core.Utils.26.0.2\lib\MonoAndroid80\Xamarin.Android.Support.Core.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.Fragment, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.Fragment.26.0.2\lib\MonoAndroid80\Xamarin.Android.Support.Fragment.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.Media.Compat, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.Media.Compat.26.0.2\lib\MonoAndroid80\Xamarin.Android.Support.Media.Compat.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v4, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.v4.26.0.2\lib\MonoAndroid80\Xamarin.Android.Support.v4.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalyseActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\SimpleLine.cs" />
+    <Compile Include="MainAdaptor.cs" />
+    <Compile Include="Fragments\PlayFragment.cs" />
+    <Compile Include="Fragments\RecordingListFragment.cs" />
+    <Compile Include="Fragments\WaveformFragment.cs" />
+    <Compile Include="Fragments\RecordFragment.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AudioPlayService.cs" />
@@ -69,9 +98,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
+    <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\RecordFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PlayFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\WaveformFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\RecordingListFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -88,6 +130,25 @@
     <Folder Include="Resources\mipmap-xxxhdpi\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="..\packages\Xamarin.Android.Support.Annotations.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Annotations.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Xamarin.Android.Support.Annotations.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Android.Support.Annotations.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets'))" />
+    <Error Condition="!Exists('..\packages\Xamarin.Android.Support.Compat.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Compat.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Android.Support.Compat.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Compat.targets'))" />
+    <Error Condition="!Exists('..\packages\Xamarin.Android.Support.Core.UI.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Core.UI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Android.Support.Core.UI.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Core.UI.targets'))" />
+    <Error Condition="!Exists('..\packages\Xamarin.Android.Support.Core.Utils.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Core.Utils.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Android.Support.Core.Utils.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Core.Utils.targets'))" />
+    <Error Condition="!Exists('..\packages\Xamarin.Android.Support.Media.Compat.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Media.Compat.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Android.Support.Media.Compat.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Media.Compat.targets'))" />
+    <Error Condition="!Exists('..\packages\Xamarin.Android.Support.Fragment.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Fragment.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Android.Support.Fragment.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Fragment.targets'))" />
+    <Error Condition="!Exists('..\packages\Xamarin.Android.Support.v4.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.v4.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Android.Support.v4.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.v4.targets'))" />
+  </Target>
+  <Import Project="..\packages\Xamarin.Android.Support.Compat.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Compat.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Compat.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Compat.targets')" />
+  <Import Project="..\packages\Xamarin.Android.Support.Core.UI.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Core.UI.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Core.UI.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Core.UI.targets')" />
+  <Import Project="..\packages\Xamarin.Android.Support.Core.Utils.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Core.Utils.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Core.Utils.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Core.Utils.targets')" />
+  <Import Project="..\packages\Xamarin.Android.Support.Media.Compat.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Media.Compat.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Media.Compat.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Media.Compat.targets')" />
+  <Import Project="..\packages\Xamarin.Android.Support.Fragment.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Fragment.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Fragment.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Fragment.targets')" />
+  <Import Project="..\packages\Xamarin.Android.Support.v4.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.v4.targets" Condition="Exists('..\packages\Xamarin.Android.Support.v4.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.v4.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 		Other similar extension points exist, see Microsoft.Common.targets.
 		<Target Name="BeforeBuild">
