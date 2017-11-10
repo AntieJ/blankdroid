@@ -29,6 +29,8 @@ namespace BlankDroid
             ConfigService.DirectoryToAnalyse = path;
             SetContentView(Resource.Layout.AnalyseFragment);
             SetupButtons();
+            FindViewById<TextView>(Resource.Id.title).Text = path.Replace(ConfigService.BaseDirectory,"");
+
         }
 
         protected override void OnResume()
@@ -62,13 +64,12 @@ namespace BlankDroid
 
             _stopPlayingButton.Click += delegate
             {
-                _stopPlayingButton.Enabled = !_stopPlayingButton.Enabled;
-                _startPlayingButton.Enabled = !_startPlayingButton.Enabled;
-                _audioPlayService.Stop();
+                StopPlaying();
             };
 
             _deleteRecordingButton.Click += delegate
             {
+                StopPlaying();
                 var deleteSucceeded = _fileService.TryDelete(path);
                 if (deleteSucceeded)
                 {
@@ -82,6 +83,13 @@ namespace BlankDroid
                 }
 
             };
+        }
+
+        private void StopPlaying()
+        {
+            _stopPlayingButton.Enabled = !_stopPlayingButton.Enabled;
+            _startPlayingButton.Enabled = !_startPlayingButton.Enabled;
+            _audioPlayService.Stop();
         }
 
         
