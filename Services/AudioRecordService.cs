@@ -73,7 +73,7 @@ namespace BlankDroid.Services
         {
             return ConfigService.BaseDirectory+
                 ConfigService.BaseName+
-                DateTime.UtcNow.ToLongTimeString() +
+                DateTime.UtcNow.ToString("dd-MM-yy-HH:mm:ss") +
                 ConfigService.FileExtension;
         }
     }
