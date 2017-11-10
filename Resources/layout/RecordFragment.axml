@@ -3,15 +3,24 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-  <Button
-      android:id="@+id/start"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:text="Start Recording" />
-  <Button
-      android:id="@+id/stop"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:enabled="false"
-      android:text="Stop Recording" />
+  <ImageButton
+    android:id="@+id/recordButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    android:src="@drawable/mic"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:background="@android:color/holo_red_light"
+    android:layout_gravity="center_horizontal"
+    />
+  <TextView
+    android:id="@+id/recordingStatus"
+        android:text=""
+        android:textSize="15pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"/>
 </LinearLayout>

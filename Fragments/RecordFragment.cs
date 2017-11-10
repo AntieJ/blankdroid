@@ -7,9 +7,10 @@ namespace BlankDroid.Fragments
 {
     public class RecordFragment : Android.Support.V4.App.Fragment
     {
-        Button _startRecordingButton;
-        Button _stopRecordingButton;
+        ImageButton _recordingButton;
         AudioRecordService _audioRecordService;
+        TextView _recordingStatus;
+        bool _recording;
 
         public RecordFragment() {
             _audioRecordService = new AudioRecordService();
@@ -25,34 +26,40 @@ namespace BlankDroid.Fragments
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.RecordFragment, container, false);
-            _startRecordingButton = view.FindViewById<Button>(Resource.Id.start);
-            _stopRecordingButton = view.FindViewById<Button>(Resource.Id.stop);
+
+            _recordingButton = view.FindViewById<ImageButton>(Resource.Id.recordButton);
+            _recordingButton.SetBackgroundColor(new Android.Graphics.Color(0, 125, 0));
             SetupButtons();
 
+
+            _recordingStatus = view.FindViewById<TextView>(Resource.Id.recordingStatus);
+            _recordingStatus.Text = "Click to Record";
+
+            _recording = false;
             return view;
         }
 
         private void SetupButtons()
         {
-            
-            _startRecordingButton.Click += async delegate
+            _recordingButton.Click += async delegate
             {
-                _stopRecordingButton.Enabled = !_stopRecordingButton.Enabled;
-                _startRecordingButton.Enabled = !_startRecordingButton.Enabled;
+                _recording = !_recording;
+                if (_recording)
+                {
+                    _recordingButton.SetBackgroundColor(new Android.Graphics.Color(125, 0, 0));
+                    _recordingStatus.Text = "Recording...";
+                    await _audioRecordService.Start();
+                }
+                else
+                {
+                    _recordingButton.SetBackgroundColor(new Android.Graphics.Color(0, 125, 0));
+                    _recordingStatus.Text = "Click to Record";
 
-                await _audioRecordService.Start();
+
+                    _audioRecordService.Stop();
+                    AnalysisContext.adaptor.UpdateList();
+                }
             };
-
-            _stopRecordingButton.Click += delegate
-            {
-                _stopRecordingButton.Enabled = !_stopRecordingButton.Enabled;
-                _startRecordingButton.Enabled = !_startRecordingButton.Enabled;
-
-                _audioRecordService.Stop();
-                AnalysisContext.adaptor.UpdateList();
-            };
-
-            
         }
     }
 }

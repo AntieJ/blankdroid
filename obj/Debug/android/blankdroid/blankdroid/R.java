@@ -123,18 +123,19 @@ containing a value of this type.
         public static final int notification_top_pad_large_text=0x7f090013;
     }
     public static final class drawable {
-        public static final int notification_action_background=0x7f020000;
-        public static final int notification_bg=0x7f020001;
-        public static final int notification_bg_low=0x7f020002;
-        public static final int notification_bg_low_normal=0x7f020003;
-        public static final int notification_bg_low_pressed=0x7f020004;
-        public static final int notification_bg_normal=0x7f020005;
-        public static final int notification_bg_normal_pressed=0x7f020006;
-        public static final int notification_icon_background=0x7f020007;
-        public static final int notification_template_icon_bg=0x7f02000a;
-        public static final int notification_template_icon_low_bg=0x7f02000b;
-        public static final int notification_tile_bg=0x7f020008;
-        public static final int notify_panel_notification_icon_bg=0x7f020009;
+        public static final int mic=0x7f020000;
+        public static final int notification_action_background=0x7f020001;
+        public static final int notification_bg=0x7f020002;
+        public static final int notification_bg_low=0x7f020003;
+        public static final int notification_bg_low_normal=0x7f020004;
+        public static final int notification_bg_low_pressed=0x7f020005;
+        public static final int notification_bg_normal=0x7f020006;
+        public static final int notification_bg_normal_pressed=0x7f020007;
+        public static final int notification_icon_background=0x7f020008;
+        public static final int notification_template_icon_bg=0x7f02000b;
+        public static final int notification_template_icon_low_bg=0x7f02000c;
+        public static final int notification_tile_bg=0x7f020009;
+        public static final int notify_panel_notification_icon_bg=0x7f02000a;
     }
     public static final class id {
         public static final int action0=0x7f0a0012;
@@ -161,12 +162,12 @@ containing a value of this type.
         public static final int notification_background=0x7f0a001f;
         public static final int notification_main_column=0x7f0a0018;
         public static final int notification_main_column_container=0x7f0a0017;
+        public static final int recordButton=0x7f0a0023;
+        public static final int recordingStatus=0x7f0a0024;
         public static final int right_icon=0x7f0a001e;
         public static final int right_side=0x7f0a0019;
-        public static final int start=0x7f0a0023;
         public static final int startPlaying=0x7f0a000a;
         public static final int status_bar_latest_event_content=0x7f0a0014;
-        public static final int stop=0x7f0a0024;
         public static final int stopPlaying=0x7f0a000b;
         public static final int text=0x7f0a0002;
         public static final int text2=0x7f0a0003;
