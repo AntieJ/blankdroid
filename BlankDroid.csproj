@@ -78,12 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyseActivity.cs" />
+    <Compile Include="AnalysisContext.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\SimpleLine.cs" />
     <Compile Include="MainAdaptor.cs" />
-    <Compile Include="Fragments\PlayFragment.cs" />
     <Compile Include="Fragments\RecordingListFragment.cs" />
-    <Compile Include="Fragments\WaveformFragment.cs" />
     <Compile Include="Fragments\RecordFragment.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,7 +107,7 @@
     <AndroidResource Include="Resources\layout\PlayFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\WaveformFragment.axml">
+    <AndroidResource Include="Resources\layout\AnalyseFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\RecordingListFragment.axml">

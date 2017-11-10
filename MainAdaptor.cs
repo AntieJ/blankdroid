@@ -3,8 +3,10 @@ using BlankDroid.Fragments;
 
 namespace BlankDroid
 {
-    class MainAdaptor : FragmentPagerAdapter
+    public class MainAdaptor : FragmentPagerAdapter
     {
+        RecordingListFragment recordingListFragment;
+
         public MainAdaptor(Android.Support.V4.App.FragmentManager fm)
             : base(fm) { }
 
@@ -22,9 +24,15 @@ namespace BlankDroid
             }
             else
             {
-                return RecordingListFragment.newInstance();
+                recordingListFragment = RecordingListFragment.newInstance();
+                return recordingListFragment;
 
             }
+        }
+
+        public void UpdateList()
+        {
+            recordingListFragment.UpdateList();
         }
 
         public override Java.Lang.ICharSequence GetPageTitleFormatted(int position)

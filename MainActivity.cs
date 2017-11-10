@@ -17,6 +17,7 @@ namespace BlankDroid
             ViewPager viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
             MainAdaptor adapter = new MainAdaptor(SupportFragmentManager);
             viewPager.Adapter = adapter;
+            AnalysisContext.adaptor = adapter;
         }
 
         protected override void OnResume()

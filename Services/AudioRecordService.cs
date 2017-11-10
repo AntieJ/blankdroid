@@ -40,8 +40,8 @@ namespace BlankDroid.Services
             {
                 Directory.CreateDirectory(ConfigService.BaseDirectory);
             }
-
-            using (var fileStream = new FileStream(ConfigService.PathToRecording, FileMode.Create, FileAccess.Write))
+            
+            using (var fileStream = new FileStream(GetFullPathToRecording(), FileMode.Create, FileAccess.Write))
             {
                 while (true)
                 {
@@ -67,6 +67,14 @@ namespace BlankDroid.Services
             }
             _audioRecord.Stop();
             _audioRecord.Release();
+        }
+
+        private string GetFullPathToRecording()
+        {
+            return ConfigService.BaseDirectory+
+                ConfigService.BaseName+
+                DateTime.UtcNow.ToLongTimeString() +
+                ConfigService.FileExtension;
         }
     }
 }

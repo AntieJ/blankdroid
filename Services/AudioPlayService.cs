@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.IO;
+﻿using System.Threading.Tasks;
 using Android.Media;
 
 namespace BlankDroid.Services
@@ -9,11 +7,17 @@ namespace BlankDroid.Services
     {
         byte[] _playBuffer = null;
         AudioTrack _audioTrack = null;
+        string _fullPath;
+
+        public AudioPlayService(string fullpath)
+        {
+            _fullPath = fullpath;
+        }
 
         public async Task Start()
         {
             var _fileService = new FileService();
-            _playBuffer = _fileService.GetByteArrayFromFile(ConfigService.PathToRecording);
+            _playBuffer = _fileService.GetByteArrayFromFile(_fullPath);
             await PlayAudioTrackAsync();
         }
 

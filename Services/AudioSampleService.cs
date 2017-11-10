@@ -6,10 +6,10 @@ namespace BlankDroid.Services
 {
     public class AudioSampleService
     {
-        public async Task<List<short>> GetSampleValues()
+        public async Task<List<short>> GetSampleValues(string path)
         {
             var fileService = new FileService();
-            var buffer = fileService.GetByteArrayFromFile(ConfigService.PathToRecording);
+            var buffer = fileService.GetByteArrayFromFile(path);
             var sampleList = new List<Int16>();
 
             await Task.Run(() =>
@@ -23,18 +23,5 @@ namespace BlankDroid.Services
 
             return sampleList;
         }
-
-        //public List<short> GetSampleValuesBytes()
-        //{
-        //    var fileService = new FileService();
-        //    var buffer = fileService.GetByteArrayFromFile(ConfigService.PathToRecording);
-        //    var sampleList = new List<byte>(buffer);
-        //    foreach(var sample in buffer)
-        //    {
-        //        Int16 sample = BitConverter.ToInt16(buffer, n);
-        //        sampleList.Add(sample);
-        //    }
-        //    return sampleList;
-        //}
     }
 }

@@ -49,6 +49,7 @@ namespace BlankDroid.Fragments
                 _startRecordingButton.Enabled = !_startRecordingButton.Enabled;
 
                 _audioRecordService.Stop();
+                AnalysisContext.adaptor.UpdateList();
             };
 
             

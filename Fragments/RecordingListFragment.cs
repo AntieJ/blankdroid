@@ -18,18 +18,20 @@ namespace BlankDroid.Fragments
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-            var values = Directory.GetFiles(ConfigService.BaseDirectory);
-            this.ListAdapter = new ArrayAdapter<string>(Activity, Android.Resource.Layout.SimpleExpandableListItem1, values);
-            
+            UpdateList();
         }
 
         public override void OnListItemClick(ListView l, View v, int index, long id)
         {
-            Toast.MakeText(Context, "Item "+id, ToastLength.Short).Show();
-
             var intent = new Intent(Context, typeof(AnalyseActivity));
-            //intent.PutStringArrayListExtra("phone_numbers", phoneNumbers);
+            intent.PutExtra("ListItemClicked", l.GetItemAtPosition(index).ToString());
             StartActivity(intent);
+        }
+
+        public void UpdateList()
+        {
+            var values = Directory.GetFiles(ConfigService.BaseDirectory);
+            this.ListAdapter = new ArrayAdapter<string>(Activity, Android.Resource.Layout.SimpleExpandableListItem1, values);
         }
     }
 }

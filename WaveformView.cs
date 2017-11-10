@@ -3,36 +3,29 @@ using Android.Util;
 using Android.Views;
 using Android.Graphics;
 using BlankDroid.Services;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using System;
 using BlankDroid.Models;
 
 namespace BlankDroid
 {
     public class WaveformView : View
     {
-        private static List<Int16> samples = new List<short>();
-
         AudioSampleService _audioSampleService;
         WaveformService _waveformService;
         int yAxis = 500;
         int chartHeight = 500;
+        static string _path;
 
         public WaveformView(Context context, IAttributeSet attrs) : base(context) {
             _audioSampleService = new AudioSampleService();
             _waveformService = new WaveformService();
+            _path = ConfigService.DirectoryToAnalyse;
         }
 
         protected override void OnDraw(Canvas canvas)
         {
-            Task.Run(() =>
-            {
-                samples = _audioSampleService.GetSampleValues().Result;
-            });
-            //samples = _audioSampleService.GetSampleValuesBytes();
-            DrawInfo(canvas, samples, x:500, y:900);
-            DrawGraph(canvas, samples);
+            DrawInfo(canvas, AnalysisContext.samples, x:500, y:900);
+            DrawGraph(canvas, AnalysisContext.samples);            
         }
 
         private void DrawInfo(Canvas canvas, List<short> samples, float x, float y)
