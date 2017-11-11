@@ -25,5 +25,7 @@ C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Deb
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\uploadflags.txt
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\BlankDroid.dll.mdb
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\BlankDroid.dll.mdb
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\drawable\pause.png
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\drawable\play.png
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\BlankDroid.dll.mdb
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\BlankDroid.dll.mdb

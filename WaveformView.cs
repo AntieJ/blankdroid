@@ -20,6 +20,8 @@ namespace BlankDroid
             _audioSampleService = new AudioSampleService();
             _waveformService = new WaveformService();
             _path = ConfigService.DirectoryToAnalyse;
+            this.Measure(100, 100);
+
         }
 
         protected override void OnDraw(Canvas canvas)

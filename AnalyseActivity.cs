@@ -9,10 +9,9 @@ namespace BlankDroid
     [Activity(Label = "BlankDroid")]
     public class AnalyseActivity : Activity
     {
-        Button _startPlayingButton;
-        Button _stopPlayingButton;
         Button _deleteRecordingButton;
-
+        ImageButton _playPauseButton;
+        bool _playing;
         AudioPlayService _audioPlayService;
         FileService _fileService;
 
@@ -30,6 +29,8 @@ namespace BlankDroid
             SetContentView(Resource.Layout.AnalyseFragment);
             SetupButtons();
             FindViewById<TextView>(Resource.Id.title).Text = path.Replace(ConfigService.BaseDirectory,"");
+            _playing = false;
+            SetPlayButtonIcon();
 
         }
 
@@ -50,21 +51,24 @@ namespace BlankDroid
 
         private void SetupButtons()
         {
-            _startPlayingButton = FindViewById<Button>(Resource.Id.startPlaying);
-            _stopPlayingButton = FindViewById<Button>(Resource.Id.stopPlaying);
             _deleteRecordingButton = FindViewById<Button>(Resource.Id.deleteRecording);
+            _playPauseButton = FindViewById<ImageButton>(Resource.Id.playPauseButton);
 
-            _startPlayingButton.Click += async delegate
+            _playPauseButton.Click += async delegate
             {
-                _stopPlayingButton.Enabled = !_stopPlayingButton.Enabled;
-                _startPlayingButton.Enabled = !_startPlayingButton.Enabled;
-
-                await _audioPlayService.Start();
-            };
-
-            _stopPlayingButton.Click += delegate
-            {
-                StopPlaying();
+                if (!_playing)
+                {
+                    _playing = !_playing;
+                    _playPauseButton.SetBackgroundColor(new Android.Graphics.Color(125, 0, 0));
+                    _playPauseButton.SetImageResource(Resource.Drawable.pause);
+                    await _audioPlayService.Start();
+                }
+                else
+                {
+                    _playing = !_playing;
+                    SetPlayButtonIcon();
+                    StopPlaying();
+                }
             };
 
             _deleteRecordingButton.Click += delegate
@@ -87,11 +91,14 @@ namespace BlankDroid
 
         private void StopPlaying()
         {
-            _stopPlayingButton.Enabled = !_stopPlayingButton.Enabled;
-            _startPlayingButton.Enabled = !_startPlayingButton.Enabled;
             _audioPlayService.Stop();
         }
 
+        private void SetPlayButtonIcon()
+        {
+            _playPauseButton.SetBackgroundColor(new Android.Graphics.Color(0, 125, 0));
+            _playPauseButton.SetImageResource(Resource.Drawable.play);
+        }
         
     }
 }
