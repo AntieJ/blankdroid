@@ -59,23 +59,23 @@ namespace BlankDroid.Services
             return (byteArray.Length / 2)/ConfigService.AudioFrequency;
         }
 
-        public void SaveNewMetadataFile(int frequency, Android.Media.Encoding bitrate)
+        public void SaveNewMetadataFile(string fileName, int frequency, Android.Media.Encoding bitrate)
         {
-            File.WriteAllText(GetFullPathToNewMetadata(), JsonConvert.SerializeObject(new RecordingMetadata()
+            File.WriteAllText(GetFullPathToNewMetadata(fileName), JsonConvert.SerializeObject(new RecordingMetadata()
             {
                 AudioFrequency = frequency,
                 AudioBitrate = bitrate
             }));
         }
 
-        public string GetFullPathToNewMetadata()
+        public string GetFullPathToNewMetadata(string fileName)
         {
-            return $"{GetNewFileName()}{ConfigService.MetadataFileExtension}";
+            return $"{ConfigService.BaseDirectory}{fileName}{ConfigService.MetadataFileExtension}";
         }
 
-        public string GetFullPathToNewRecording()
+        public string GetFullPathToNewRecording(string fileName)
         {
-            return $"{GetNewFileName()}{ConfigService.AudioFileExtension}";
+            return $"{ConfigService.BaseDirectory}{fileName}{ConfigService.AudioFileExtension}";
         }
 
         public RecordingMetadata GetRecordingMetadata(string basePath, string fileName)
@@ -92,10 +92,9 @@ namespace BlankDroid.Services
             
         }
 
-        private string GetNewFileName()
+        public string GenerateFileNameWithoutExtension()
         {
-            return ConfigService.BaseDirectory +
-                ConfigService.BaseName +
+            return ConfigService.BaseName +
                 DateTime.UtcNow.ToString("dd-MM-yy-HH:mm:ss");
         }
 

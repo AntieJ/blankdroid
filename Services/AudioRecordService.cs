@@ -49,7 +49,9 @@ namespace BlankDroid.Services
                 Directory.CreateDirectory(ConfigService.BaseDirectory);
             }
 
-            using (var fileStream = new FileStream(_fileService.GetFullPathToNewRecording(), FileMode.Create, FileAccess.Write))
+            var newFilename = _fileService.GenerateFileNameWithoutExtension();
+
+            using (var fileStream = new FileStream(_fileService.GetFullPathToNewRecording(newFilename), FileMode.Create, FileAccess.Write))
             {
                 while (true)
                 {
@@ -75,7 +77,7 @@ namespace BlankDroid.Services
             }
             _audioRecord.Stop();
             _audioRecord.Release();
-            _fileService.SaveNewMetadataFile(ConfigService.AudioFrequency, ConfigService.AudioBitrate);
+            _fileService.SaveNewMetadataFile(newFilename, ConfigService.AudioFrequency, ConfigService.AudioBitrate);
         }
     }
 }

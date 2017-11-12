@@ -30,7 +30,11 @@ namespace BlankDroid.Fragments
                 "\n" +
                 $"Length: {_fileService.GetAudioFileLengthInSeconds(_fullAudioPath)}S" +
                 "\n" +
-                "Date";
+                "Date" +
+                "\n" +
+                $"Frequency: {metadata.AudioFrequency}" +
+                "\n" +
+                $"Bitrate: {metadata.AudioBitrate.ToString()}";
         }
     }
 }
