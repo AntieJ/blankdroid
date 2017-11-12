@@ -93,6 +93,7 @@
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\PaintService.cs" />
     <Compile Include="Services\WaveformService.cs" />
+    <Compile Include="Fragments\RecordingInfoFragment.cs" />
     <Compile Include="Views\WaveformView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -110,10 +111,13 @@
     <AndroidResource Include="Resources\layout\PlayFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\AnalyseFragment.axml">
+    <AndroidResource Include="Resources\layout\AnalyseActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\RecordingListFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\RecordingInfoFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -5,7 +5,7 @@
   <xs:import schemaLocation="schemas.android.com.tools.xsd" namespace="http://schemas.android.com/tools" />
   <xs:annotation>
     <xs:documentation>v25</xs:documentation>
-    <xs:documentation>11/11/2017 09:49:28</xs:documentation>
+    <xs:documentation>12/11/2017 13:11:14</xs:documentation>
   </xs:annotation>
   <xs:group name="any-view">
     <xs:choice>
@@ -92,7 +92,7 @@
       <xs:element ref="android.support.v4.view.PagerTitleStrip" />
       <xs:element ref="android.support.v4.view.PagerTabStrip" />
       <xs:element ref="android.support.v4.app.FragmentTabHost" />
-      <xs:element ref="BlankDroid.WaveformView" />
+      <xs:element ref="BlankDroid.Views.WaveformView" />
       <xs:element ref="include" />
     </xs:choice>
   </xs:group>
@@ -1514,12 +1514,12 @@
       <xs:extension base="TabHost" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="BlankDroid.WaveformView" type="BlankDroid.WaveformView">
+  <xs:element name="BlankDroid.Views.WaveformView" type="BlankDroid.Views.WaveformView">
     <xs:annotation>
-      <xs:documentation>Runtime Type: BlankDroid.WaveformView</xs:documentation>
+      <xs:documentation>Runtime Type: BlankDroid.Views.WaveformView</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:complexType name="BlankDroid.WaveformView">
+  <xs:complexType name="BlankDroid.Views.WaveformView">
     <xs:complexContent mixed="false">
       <xs:extension base="View" />
     </xs:complexContent>

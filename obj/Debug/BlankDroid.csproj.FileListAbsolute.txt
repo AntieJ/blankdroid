@@ -16,7 +16,6 @@ C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Deb
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\bin\BlankDroid.BlankDroid.apk
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\recordfragment.xml
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\playfragment.xml
-C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\analysefragment.xml
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\recordinglistfragment.xml
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\main.xml
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\values\strings.xml
@@ -28,5 +27,7 @@ C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Deb
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\drawable\pause.png
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\drawable\play.png
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\drawable\delete.png
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\analyseactivity.xml
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\recordinginfofragment.xml
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\BlankDroid.dll.mdb
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\BlankDroid.dll.mdb

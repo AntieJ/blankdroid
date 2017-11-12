@@ -31,5 +31,17 @@ namespace BlankDroid.Services
                 return false;
             }
         }
+
+        public long GetFileSizeInKB(string filepath)
+        {
+            return new FileInfo(filepath).Length / 1000;
+        }
+
+        public int GetFileLengthInSeconds(string filepath)
+        {
+            var byteArray = GetByteArrayFromFile(filepath);
+            return (byteArray.Length / 2)/ConfigService.AudioFrequency;
+        }
+        
     }
 }

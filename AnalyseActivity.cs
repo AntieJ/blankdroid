@@ -26,7 +26,7 @@ namespace BlankDroid
             _audioPlayService = new AudioPlayService(path);
             _fileService = new FileService();
             ConfigService.DirectoryToAnalyse = path;
-            SetContentView(Resource.Layout.AnalyseFragment);
+            SetContentView(Resource.Layout.AnalyseActivity);
             SetupButtons();
             FindViewById<TextView>(Resource.Id.title).Text = path.Replace(ConfigService.BaseDirectory,"");
             _playing = false;
