@@ -195,49 +195,52 @@ namespace BlankDroid
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int mic = 2130837504;
+			public const int delete = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int notification_action_background = 2130837505;
+			public const int mic = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int notification_bg = 2130837506;
+			public const int notification_action_background = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int notification_bg_low = 2130837507;
+			public const int notification_bg = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int notification_bg_low_normal = 2130837508;
+			public const int notification_bg_low = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int notification_bg_low_pressed = 2130837509;
+			public const int notification_bg_low_normal = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int notification_bg_normal = 2130837510;
+			public const int notification_bg_low_pressed = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int notification_bg_normal_pressed = 2130837511;
+			public const int notification_bg_normal = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int notification_icon_background = 2130837512;
-			
-			// aapt resource value: 0x7f02000d
-			public const int notification_template_icon_bg = 2130837517;
-			
-			// aapt resource value: 0x7f02000e
-			public const int notification_template_icon_low_bg = 2130837518;
+			public const int notification_bg_normal_pressed = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int notification_tile_bg = 2130837513;
+			public const int notification_icon_background = 2130837513;
+			
+			// aapt resource value: 0x7f02000e
+			public const int notification_template_icon_bg = 2130837518;
+			
+			// aapt resource value: 0x7f02000f
+			public const int notification_template_icon_low_bg = 2130837519;
 			
 			// aapt resource value: 0x7f02000a
-			public const int notify_panel_notification_icon_bg = 2130837514;
+			public const int notification_tile_bg = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int pause = 2130837515;
+			public const int notify_panel_notification_icon_bg = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int play = 2130837516;
+			public const int pause = 2130837516;
+			
+			// aapt resource value: 0x7f02000d
+			public const int play = 2130837517;
 			
 			static Drawable()
 			{
@@ -282,8 +285,8 @@ namespace BlankDroid
 			// aapt resource value: 0x7f0a001a
 			public const int chronometer = 2131361818;
 			
-			// aapt resource value: 0x7f0a000b
-			public const int deleteRecording = 2131361803;
+			// aapt resource value: 0x7f0a000c
+			public const int deleteRecording = 2131361804;
 			
 			// aapt resource value: 0x7f0a0021
 			public const int end_padder = 2131361825;
@@ -324,8 +327,8 @@ namespace BlankDroid
 			// aapt resource value: 0x7f0a0016
 			public const int notification_main_column_container = 2131361814;
 			
-			// aapt resource value: 0x7f0a000a
-			public const int playPauseButton = 2131361802;
+			// aapt resource value: 0x7f0a000b
+			public const int playPauseButton = 2131361803;
 			
 			// aapt resource value: 0x7f0a0024
 			public const int recordButton = 2131361828;
@@ -363,8 +366,8 @@ namespace BlankDroid
 			// aapt resource value: 0x7f0a000d
 			public const int viewpager = 2131361805;
 			
-			// aapt resource value: 0x7f0a000c
-			public const int waveformView = 2131361804;
+			// aapt resource value: 0x7f0a000a
+			public const int waveformView = 2131361802;
 			
 			static Id()
 			{

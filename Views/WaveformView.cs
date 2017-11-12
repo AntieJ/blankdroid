@@ -6,7 +6,7 @@ using BlankDroid.Services;
 using System.Collections.Generic;
 using BlankDroid.Models;
 
-namespace BlankDroid
+namespace BlankDroid.Views
 {
     public class WaveformView : View
     {
@@ -20,13 +20,11 @@ namespace BlankDroid
             _audioSampleService = new AudioSampleService();
             _waveformService = new WaveformService();
             _path = ConfigService.DirectoryToAnalyse;
-            this.Measure(100, 100);
-
         }
 
         protected override void OnDraw(Canvas canvas)
         {
-            DrawInfo(canvas, AnalysisContext.samples, x:500, y:900);
+            canvas.Scale((float)1, (float)0.5);
             DrawGraph(canvas, AnalysisContext.samples);            
         }
 

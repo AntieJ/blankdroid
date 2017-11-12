@@ -9,7 +9,7 @@ namespace BlankDroid
     [Activity(Label = "BlankDroid")]
     public class AnalyseActivity : Activity
     {
-        Button _deleteRecordingButton;
+        ImageButton _deleteRecordingButton;
         ImageButton _playPauseButton;
         bool _playing;
         AudioPlayService _audioPlayService;
@@ -51,7 +51,7 @@ namespace BlankDroid
 
         private void SetupButtons()
         {
-            _deleteRecordingButton = FindViewById<Button>(Resource.Id.deleteRecording);
+            _deleteRecordingButton = FindViewById<ImageButton>(Resource.Id.deleteRecording);
             _playPauseButton = FindViewById<ImageButton>(Resource.Id.playPauseButton);
 
             _playPauseButton.Click += async delegate
