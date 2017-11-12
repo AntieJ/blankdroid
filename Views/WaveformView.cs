@@ -19,7 +19,7 @@ namespace BlankDroid.Views
         public WaveformView(Context context, IAttributeSet attrs) : base(context) {
             _audioSampleService = new AudioSampleService();
             _waveformService = new WaveformService();
-            _path = ConfigService.DirectoryToAnalyse;
+            _path = ConfigService.FullAudioPathToAnalyse;
         }
 
         protected override void OnDraw(Canvas canvas)

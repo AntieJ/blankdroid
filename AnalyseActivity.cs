@@ -3,6 +3,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using BlankDroid.Services;
+using System.IO;
 
 namespace BlankDroid
 {
@@ -15,20 +16,20 @@ namespace BlankDroid
         AudioPlayService _audioPlayService;
         FileService _fileService;
 
-        string path;
+        string _fullAudioPath;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             HideTitleBar();
-            path = Intent.GetStringExtra("ListItemClicked") ?? "Data not available";
-            AnalysisContext.UpdateContext(path);
-            _audioPlayService = new AudioPlayService(path);
+            _fullAudioPath = Intent.GetStringExtra("ListItemClicked") ?? "Data not available";
+            AnalysisContext.UpdateContext(_fullAudioPath);
+            _audioPlayService = new AudioPlayService(_fullAudioPath);
             _fileService = new FileService();
-            ConfigService.DirectoryToAnalyse = path;
+            UpdateAnalyseContext();
             SetContentView(Resource.Layout.AnalyseActivity);
             SetupButtons();
-            FindViewById<TextView>(Resource.Id.title).Text = path.Replace(ConfigService.BaseDirectory,"");
+            FindViewById<TextView>(Resource.Id.title).Text = _fullAudioPath.Replace(ConfigService.BaseDirectory,"");
             _playing = false;
             SetPlayButtonIcon();
 
@@ -74,7 +75,7 @@ namespace BlankDroid
             _deleteRecordingButton.Click += delegate
             {
                 StopPlaying();
-                var deleteSucceeded = _fileService.TryDelete(path);
+                var deleteSucceeded = _fileService.TryDelete(_fullAudioPath);
                 if (deleteSucceeded)
                 {
                     AnalysisContext.adaptor.UpdateList();
@@ -99,7 +100,13 @@ namespace BlankDroid
             _playPauseButton.SetBackgroundColor(new Android.Graphics.Color(0, 125, 0));
             _playPauseButton.SetImageResource(Resource.Drawable.play);
         }
-        
+
+        private void UpdateAnalyseContext()
+        {
+            ConfigService.FullAudioPathToAnalyse = _fullAudioPath;
+            ConfigService.FileNameWithoutExtensionToAnalyse = Path.GetFileNameWithoutExtension(_fullAudioPath);
+        }
+
     }
 }
 

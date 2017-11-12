@@ -2,6 +2,8 @@
 using Android.Media;
 using System.Threading.Tasks;
 using System.IO;
+using Newtonsoft.Json;
+using BlankDroid.Models;
 
 namespace BlankDroid.Services
 {
@@ -10,6 +12,12 @@ namespace BlankDroid.Services
         AudioRecord _audioRecord;
         Byte[] _audioBuffer;
         bool _endRecording;
+        FileService _fileService;
+
+        public AudioRecordService()
+        {
+            _fileService = new FileService();
+        }
 
         public async Task Start()
         {
@@ -40,8 +48,8 @@ namespace BlankDroid.Services
             {
                 Directory.CreateDirectory(ConfigService.BaseDirectory);
             }
-            
-            using (var fileStream = new FileStream(GetFullPathToRecording(), FileMode.Create, FileAccess.Write))
+
+            using (var fileStream = new FileStream(_fileService.GetFullPathToNewRecording(), FileMode.Create, FileAccess.Write))
             {
                 while (true)
                 {
@@ -67,14 +75,7 @@ namespace BlankDroid.Services
             }
             _audioRecord.Stop();
             _audioRecord.Release();
-        }
-
-        private string GetFullPathToRecording()
-        {
-            return ConfigService.BaseDirectory+
-                ConfigService.BaseName+
-                DateTime.UtcNow.ToString("dd-MM-yy-HH:mm:ss") +
-                ConfigService.FileExtension;
+            _fileService.SaveNewMetadataFile(ConfigService.AudioFrequency, ConfigService.AudioBitrate);
         }
     }
 }

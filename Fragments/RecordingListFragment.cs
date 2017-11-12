@@ -10,6 +10,12 @@ namespace BlankDroid.Fragments
 {
     public class RecordingListFragment : Android.Support.V4.App.ListFragment
     {
+        FileService _fileService;
+
+        public RecordingListFragment()
+        {
+            _fileService = new FileService();
+        }
 
         public static RecordingListFragment newInstance()
         {
@@ -31,11 +37,7 @@ namespace BlankDroid.Fragments
 
         public void UpdateList()
         {
-            var values = new List<string>();
-            foreach(var value in Directory.GetFiles(ConfigService.BaseDirectory))
-            {
-                values.Add(value.Replace(ConfigService.BaseDirectory, ""));
-            }
+            var values = _fileService.GetFilesFromDirectory(ConfigService.BaseDirectory, ConfigService.AudioFileExtension);
             this.ListAdapter = new ArrayAdapter<string>(Activity, Android.Resource.Layout.SimpleExpandableListItem1, values);
         }
     }

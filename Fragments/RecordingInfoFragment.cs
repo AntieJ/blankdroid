@@ -8,13 +8,14 @@ namespace BlankDroid.Fragments
 {
     public class RecordingInfoFragment : Fragment
     {
-        private string _path;
+        private string _fullAudioPath;
+        private string _fileName;
+        private string _directory;
         FileService _fileService;
 
-        public override View OnCreateView(
-            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            _path = ConfigService.DirectoryToAnalyse;
+            _fullAudioPath = ConfigService.FullAudioPathToAnalyse;
             _fileService = new FileService();
             View view = inflater.Inflate(Resource.Layout.RecordingInfoFragment, container, false);
             view.FindViewById<TextView>(Resource.Id.content).Text = GetContent();
@@ -24,9 +25,10 @@ namespace BlankDroid.Fragments
 
         private string GetContent()
         {
-            return $"Size: {_fileService.GetFileSizeInKB(_path)}kB "+
+            var metadata = _fileService.GetRecordingMetadata($"{ConfigService.BaseDirectory}",$"{ConfigService.FileNameWithoutExtensionToAnalyse}");
+            return $"Size: {_fileService.GetFileSizeInKB(_fullAudioPath)}kB "+
                 "\n" +
-                $"Length: {_fileService.GetFileLengthInSeconds(_path)}S" +
+                $"Length: {_fileService.GetAudioFileLengthInSeconds(_fullAudioPath)}S" +
                 "\n" +
                 "Date";
         }
