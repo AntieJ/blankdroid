@@ -75,19 +75,26 @@ namespace BlankDroid
             _deleteRecordingButton.Click += delegate
             {
                 StopPlaying();
-                var deleteSucceeded = _fileService.TryDelete(_fullAudioPath);
-                if (deleteSucceeded)
-                {
-                    AnalysisContext.adaptor.UpdateList();
-                    Toast.MakeText(ApplicationContext, "Deleted!", ToastLength.Short).Show();
-                    Finish();
-                }
-                else
-                {
-                    Toast.MakeText(ApplicationContext, "Failed to delete", ToastLength.Short).Show();
-                }
+                RequestDeleteConfirmation();              
 
             };
+        }
+
+        private void RequestDeleteConfirmation()
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("Confirm delete");
+            alert.SetMessage("Are you sure you want to delete this recording?");
+            alert.SetPositiveButton("Delete", (senderAlert, args) => {
+                DeleteFile();
+            });
+
+            alert.SetNegativeButton("Cancel", (senderAlert, args) => {
+                Toast.MakeText(this, "Cancelled!", ToastLength.Short).Show();                
+            });
+
+            Dialog dialog = alert.Create();
+            dialog.Show();
         }
 
         private void StopPlaying()
@@ -107,6 +114,20 @@ namespace BlankDroid
             ConfigService.FileNameWithoutExtensionToAnalyse = Path.GetFileNameWithoutExtension(_fullAudioPath);
         }
 
+        private void DeleteFile()
+        {
+            var deleteSucceeded = _fileService.TryDelete(_fullAudioPath);
+            if (deleteSucceeded)
+            {
+                AnalysisContext.adaptor.UpdateList();
+                Toast.MakeText(ApplicationContext, "Deleted!", ToastLength.Short).Show();
+                Finish();
+            }
+            else
+            {
+                Toast.MakeText(ApplicationContext, "Failed to delete", ToastLength.Short).Show();
+            }
+        }
     }
 }
 
