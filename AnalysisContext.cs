@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using BlankDroid.Services;
 using System.Threading.Tasks;
+using BlankDroid.Models;
 
 namespace BlankDroid
 {
     public static class AnalysisContext
     {
-        public static string _fullAudioPath;
+        private static string _fullAudioPath;
+        private static RecordingMetadata _metadata;
+        private static FileService _fileService;
+
         public static List<Int16> samples = new List<short>();
         public static MainAdaptor adaptor;
 
-        public static void UpdateContext(string path)
+        public static void UpdateContext(string baseLocation, string fileName)
         {
-            _fullAudioPath = path;
+            _fileService = new FileService();
+            _fullAudioPath = _fileService.GetFullPathToRecording(baseLocation, fileName);
+            _metadata = _fileService.GetRecordingMetadata(baseLocation, fileName);
             UpdateSamples();
         }
 
@@ -23,7 +29,7 @@ namespace BlankDroid
 
             Task.Run(() =>
             {
-                samples = audioSampleService.GetSampleValues(_fullAudioPath).Result;
+                samples = audioSampleService.GetSampleValues(_fullAudioPath, _metadata.AudioBitrate).Result;
             });
         }
     }

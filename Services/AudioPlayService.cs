@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Android.Media;
+using BlankDroid.Models;
 
 namespace BlankDroid.Services
 {
@@ -7,17 +8,21 @@ namespace BlankDroid.Services
     {
         byte[] _playBuffer = null;
         AudioTrack _audioTrack = null;
-        string _fullPath;
+        FileService _fileService;
+        string _fullPathToAudio;
+        private RecordingMetadata _metadata;
 
-        public AudioPlayService(string fullpath)
+        public AudioPlayService(string baseDirectory, string fileName)
         {
-            _fullPath = fullpath;
+            _fileService = new FileService();
+            _metadata = _fileService.GetRecordingMetadata(baseDirectory, fileName);
+            _fullPathToAudio = _fileService.GetFullPathToRecording(baseDirectory, fileName);
         }
 
         public async Task Start()
         {
             var _fileService = new FileService();
-            _playBuffer = _fileService.GetByteArrayFromFile(_fullPath);
+            _playBuffer = _fileService.GetByteArrayFromFile(_fullPathToAudio);
             await PlayAudioTrackAsync();
         }
 
@@ -33,11 +38,14 @@ namespace BlankDroid.Services
 
         private async Task PlayAudioTrackAsync()
         {
+            var bitrate = _metadata.AudioBitrate!= Android.Media.Encoding.Invalid ? 
+                _metadata.AudioBitrate: ConfigService.AudioBitrate;
+
             _audioTrack = new AudioTrack(
-                Android.Media.Stream.Music,
+                Stream.Music,
                 ConfigService.AudioFrequency,
                 ChannelConfiguration.Mono,
-                ConfigService.AudioBitrate,
+                bitrate,
                 _playBuffer.Length,
                 // Mode. Stream or static.
                 AudioTrackMode.Stream);

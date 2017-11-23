@@ -22,17 +22,17 @@ namespace BlankDroid
         {
             base.OnCreate(bundle);
             HideTitleBar();
-            _fullAudioPath = Intent.GetStringExtra("ListItemClicked") ?? "Data not available";
-            AnalysisContext.UpdateContext(_fullAudioPath);
-            _audioPlayService = new AudioPlayService(_fullAudioPath);
             _fileService = new FileService();
+            var filename = Intent.GetStringExtra("FileNameClicked") ?? "";
+            _fullAudioPath = _fileService.GetFullPathToRecording(ConfigService.BaseDirectory, filename);
+            AnalysisContext.UpdateContext(ConfigService.BaseDirectory, filename);
+            _audioPlayService = new AudioPlayService(ConfigService.BaseDirectory, filename);
             UpdateAnalyseContext();
             SetContentView(Resource.Layout.AnalyseActivity);
             SetupButtons();
             FindViewById<TextView>(Resource.Id.title).Text = _fullAudioPath.Replace(ConfigService.BaseDirectory,"");
             _playing = false;
             SetPlayButtonIcon();
-
         }
 
         protected override void OnResume()

@@ -29,7 +29,7 @@ namespace BlankDroid.Services
             {
                 if (value.EndsWith(fileExtension))
                 {
-                    values.Add(value.Replace(baseDirectory, ""));
+                    values.Add(value.Replace(baseDirectory, "").Replace(fileExtension, ""));
                 }
             }
             return values;
@@ -70,12 +70,22 @@ namespace BlankDroid.Services
 
         public string GetFullPathToNewMetadata(string fileName)
         {
-            return $"{ConfigService.BaseDirectory}{fileName}{ConfigService.MetadataFileExtension}";
+            return GetFullPathToMetadata(ConfigService.BaseDirectory, fileName);
         }
 
         public string GetFullPathToNewRecording(string fileName)
         {
-            return $"{ConfigService.BaseDirectory}{fileName}{ConfigService.AudioFileExtension}";
+            return GetFullPathToRecording(ConfigService.BaseDirectory, fileName);
+        }
+
+        public string GetFullPathToMetadata(string baseDirectory, string fileName)
+        {
+            return $"{baseDirectory}{fileName}{ConfigService.MetadataFileExtension}";
+        }
+
+        public string GetFullPathToRecording(string baseDirectory, string fileName)
+        {
+            return $"{baseDirectory}{fileName}{ConfigService.AudioFileExtension}";
         }
 
         public RecordingMetadata GetRecordingMetadata(string basePath, string fileName)

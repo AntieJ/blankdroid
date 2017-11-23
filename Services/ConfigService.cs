@@ -7,7 +7,7 @@
         public static string AudioFileExtension = ".pcm";
         public static string MetadataFileExtension = ".metadata";
         public static int AudioFrequency = 11025;
-        public static Android.Media.Encoding AudioBitrate = Android.Media.Encoding.Pcm16bit;
+        public static Android.Media.Encoding AudioBitrate = Android.Media.Encoding.Pcm8bit;
         public static string FullAudioPathToAnalyse = "";
         public static string FileNameWithoutExtensionToAnalyse = "";
     }

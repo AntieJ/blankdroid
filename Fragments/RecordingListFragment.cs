@@ -31,7 +31,7 @@ namespace BlankDroid.Fragments
         public override void OnListItemClick(ListView l, View v, int index, long id)
         {
             var intent = new Intent(Context, typeof(AnalyseActivity));
-            intent.PutExtra("ListItemClicked", $"{ConfigService.BaseDirectory}{l.GetItemAtPosition(index)}");
+            intent.PutExtra("FileNameClicked", $"{l.GetItemAtPosition(index)}");
             StartActivity(intent);
         }
 
