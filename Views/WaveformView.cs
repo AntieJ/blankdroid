@@ -12,6 +12,7 @@ namespace BlankDroid.Views
     {
         AudioSampleService _audioSampleService;
         WaveformService _waveformService;
+        FileService _fileService;
         int yAxis = 500;
         int chartHeight = 500;
         static string _path;
@@ -19,7 +20,8 @@ namespace BlankDroid.Views
         public WaveformView(Context context, IAttributeSet attrs) : base(context) {
             _audioSampleService = new AudioSampleService();
             _waveformService = new WaveformService();
-            _path = ConfigService.FullAudioPathToAnalyse;
+            _fileService = new FileService();
+            _path = AnalysisContext.FullAudioPath;
         }
 
         protected override void OnDraw(Canvas canvas)
@@ -32,12 +34,22 @@ namespace BlankDroid.Views
         {
             canvas.DrawText(
                 $"{samples.Count} samples. {samples.Count / ConfigService.AudioFrequency} seconds",
-                x, y, PaintService.GetDefaultTextPaint());
+                x, y, PaintService.GetDefaultTextPaint());            
         }
 
         private void DrawGraph(Canvas canvas, List<short> samples)
-        {            
-            var displayLines = _waveformService.GetLinesFromSamples(canvas.Width, yAxis, chartHeight, samples);
+        {
+            SimpleLine[] displayLines;
+            if (_fileService.ProcessedDisplayLinesFileExists(AnalysisContext.BaseDirectory, AnalysisContext.FileName))
+            {
+                displayLines = _fileService.GetProcessedDisplayLines(AnalysisContext.BaseDirectory, AnalysisContext.FileName);
+            }
+            else
+            {
+                displayLines = _waveformService.GetLinesFromSamples(canvas.Width, yAxis, chartHeight, samples);
+                _fileService.SaveProcessedDisplayLines(displayLines, AnalysisContext.FileName);
+            }           
+
             var baseLine = _waveformService.GetBaseLine(canvas.Width, yAxis);
 
             DrawLines(canvas, displayLines, PaintService.GetRed());

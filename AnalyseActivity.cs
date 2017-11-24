@@ -26,8 +26,8 @@ namespace BlankDroid
             var filename = Intent.GetStringExtra("FileNameClicked") ?? "";
             _fullAudioPath = _fileService.GetFullPathToRecording(ConfigService.BaseDirectory, filename);
             AnalysisContext.UpdateContext(ConfigService.BaseDirectory, filename);
-            _audioPlayService = new AudioPlayService(ConfigService.BaseDirectory, filename);
-            UpdateAnalyseContext();
+            AnalysisContext.UpdateSamples(ConfigService.BaseDirectory, filename);
+            _audioPlayService = new AudioPlayService(ConfigService.BaseDirectory, filename);            
             SetContentView(Resource.Layout.AnalyseActivity);
             SetupButtons();
             FindViewById<TextView>(Resource.Id.title).Text = _fullAudioPath.Replace(ConfigService.BaseDirectory,"");
@@ -106,12 +106,6 @@ namespace BlankDroid
         {
             _playPauseButton.SetBackgroundColor(new Android.Graphics.Color(0, 125, 0));
             _playPauseButton.SetImageResource(Resource.Drawable.play);
-        }
-
-        private void UpdateAnalyseContext()
-        {
-            ConfigService.FullAudioPathToAnalyse = _fullAudioPath;
-            ConfigService.FileNameWithoutExtensionToAnalyse = Path.GetFileNameWithoutExtension(_fullAudioPath);
         }
 
         private void DeleteFile()

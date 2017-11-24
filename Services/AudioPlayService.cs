@@ -21,6 +21,8 @@ namespace BlankDroid.Services
 
         public async Task Start()
         {
+            //TODO: can the play buffer be built when the user loads the page but before they press start?
+            //will this be more performant?
             var _fileService = new FileService();
             _playBuffer = _fileService.GetByteArrayFromFile(_fullPathToAudio);
             await PlayAudioTrackAsync();

@@ -78,6 +78,11 @@ namespace BlankDroid.Services
             return GetFullPathToRecording(ConfigService.BaseDirectory, fileName);
         }
 
+        public string GetFullPathToNewDisplayLinesFile(string fileName)
+        {
+            return GetFullPathToDisplayLinesFile(ConfigService.BaseDirectory, fileName);
+        }
+
         public string GetFullPathToMetadata(string baseDirectory, string fileName)
         {
             return $"{baseDirectory}{fileName}{ConfigService.MetadataFileExtension}";
@@ -87,6 +92,12 @@ namespace BlankDroid.Services
         {
             return $"{baseDirectory}{fileName}{ConfigService.AudioFileExtension}";
         }
+
+        public string GetFullPathToDisplayLinesFile(string baseDirectory, string fileName)
+        {
+            return $"{baseDirectory}{fileName}{ConfigService.DisplayLinesFileExtension}";
+        }
+
 
         public RecordingMetadata GetRecordingMetadata(string basePath, string fileName)
         {
@@ -106,6 +117,29 @@ namespace BlankDroid.Services
         {
             return ConfigService.BaseName +
                 DateTime.UtcNow.ToString("dd-MM-yy-HH:mm:ss");
+        }
+
+        public bool SaveProcessedDisplayLines(SimpleLine[] lineArray, string fileName)
+        {
+            var jsonArray = JsonConvert.SerializeObject(lineArray);
+            File.WriteAllText(GetFullPathToNewDisplayLinesFile(fileName), jsonArray);
+            return true;
+        }
+
+        public SimpleLine[] GetProcessedDisplayLines(string baseDirectory, string fileName)
+        {
+            if (!ProcessedDisplayLinesFileExists(baseDirectory, fileName))
+            {
+                throw new Exception("Display lines file does not exist");
+            }
+
+            var linesFileString = File.ReadAllText(GetFullPathToDisplayLinesFile(baseDirectory, fileName));
+            return JsonConvert.DeserializeObject<SimpleLine[]>(linesFileString);
+        }
+
+        public bool ProcessedDisplayLinesFileExists(string baseDirectory, string fileName)
+        {
+            return File.Exists(GetFullPathToDisplayLinesFile(baseDirectory, fileName));
         }
 
     }

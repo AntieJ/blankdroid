@@ -15,8 +15,10 @@ namespace BlankDroid.Services
             }
             else
             {
-                //assume 16 bit
+
+                //default to 16 bit
                 return await GetSampleValues16Bit(path);
+
             }
         }
 
@@ -38,27 +40,26 @@ namespace BlankDroid.Services
             return sampleList;
         }
 
+        //todo: Thread never completes.
         private async Task<List<short>> GetSampleValues8Bit(string path)
         {
             var fileService = new FileService();
             var buffer = fileService.GetByteArrayFromFile(path);
             var sampleList = new List<Int16>();
-
             await Task.Run(() =>
             {
-                for (int n = 0; n < buffer.Length; n +=2)
+                for (int n = 0; n < buffer.Length; n ++)
                 {
-                    Int16 sample = Convert.ToSByte(buffer[n]); //n++
+                    var thing=buffer[n];
+                    var sample = (Int16)Convert.ToSByte((byte)buffer[n]); //n++
                     //Int16 sample = BitConverter.ToInt16(buffer, n); //+=2
                     sampleList.Add(sample);
-                    if (sample < 0)
-                    {
-                        Debug.Write("less than zero");
-                    }
                 }
+
             });
 
             return sampleList;
+
         }
     }
 }

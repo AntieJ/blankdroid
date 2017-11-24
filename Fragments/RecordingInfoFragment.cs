@@ -15,7 +15,7 @@ namespace BlankDroid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            _fullAudioPath = ConfigService.FullAudioPathToAnalyse;
+            _fullAudioPath = AnalysisContext.FullAudioPath;
             _fileService = new FileService();
             View view = inflater.Inflate(Resource.Layout.RecordingInfoFragment, container, false);
             view.FindViewById<TextView>(Resource.Id.content).Text = GetContent();
@@ -25,7 +25,7 @@ namespace BlankDroid.Fragments
 
         private string GetContent()
         {
-            var metadata = _fileService.GetRecordingMetadata($"{ConfigService.BaseDirectory}",$"{ConfigService.FileNameWithoutExtensionToAnalyse}");
+            var metadata = _fileService.GetRecordingMetadata($"{ConfigService.BaseDirectory}",$"{AnalysisContext.FileName}");
             return $"Size: {_fileService.GetFileSizeInKB(_fullAudioPath)}kB "+
                 "\n" +
                 $"Length: {_fileService.GetAudioFileLengthInSeconds(_fullAudioPath)}S" +
