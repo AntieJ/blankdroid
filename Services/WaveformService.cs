@@ -3,6 +3,8 @@ using System.Linq;
 using BlankDroid.Models;
 using System.Threading.Tasks;
 using System;
+using System.Diagnostics;
+using System.Threading;
 
 namespace BlankDroid.Services
 {
@@ -10,6 +12,8 @@ namespace BlankDroid.Services
     {
         private int stepSize = 100;
         private FileService _fileService;
+        private Dictionary<string, int> retryLog = new Dictionary<string, int>();
+        private int retryMaxCount=5;
 
         public WaveformService()
         {
@@ -18,20 +22,39 @@ namespace BlankDroid.Services
 
         public async Task ProcessAndSaveDisplayLines(string baseDirectory, string fileName)
         {
-            var audioPath = _fileService.GetFullPathToRecording(baseDirectory, fileName);
-            var metadata = _fileService.GetRecordingMetadata(baseDirectory, fileName);
-            var samples = await GetSampleValues(audioPath, metadata.AudioBitrate);
+            try
+            {
+                var audioPath = _fileService.GetFullPathToRecording(baseDirectory, fileName);
+                var metadata = _fileService.GetRecordingMetadata(baseDirectory, fileName);
+                var samples = await GetSampleValues(audioPath, metadata.AudioBitrate);
 
-            if (_fileService.ProcessedDisplayLinesFileExists(baseDirectory, fileName))
-            {
-                //nothing to do
-                return;
+                if (_fileService.ProcessedDisplayLinesFileExists(baseDirectory, fileName))
+                {
+                    //nothing to do
+                    return;
+                }
+                else
+                {
+                    var displayLines = GetLinesFromSamples(ConfigService.PixelWidth, ConfigService.YAxis,
+                        ConfigService.ChartHeight, samples);
+                    _fileService.SaveProcessedDisplayLines(displayLines, fileName);
+                    Debug.WriteLine($"{DateTime.Now.ToLongTimeString()} - SUCEEDED processing file! {fileName} ");
+
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var displayLines = GetLinesFromSamples(ConfigService.PixelWidth, ConfigService.YAxis,
-                    ConfigService.ChartHeight, samples);
-                _fileService.SaveProcessedDisplayLines(displayLines, fileName);
+                Debug.WriteLine($"{DateTime.Now.ToLongTimeString()} - Error processing file! {fileName} {ex.Message}");
+                
+                if(!retryLog.ContainsKey(fileName) || retryLog[fileName] < retryMaxCount)
+                {
+                    
+                    await RetryProcessAndSaveDisplayLines(baseDirectory, fileName);
+                }
+                else
+                {
+                    Debug.WriteLine($"{DateTime.Now.ToLongTimeString()} - Giving up processing. {fileName} {ex.Message}");
+                }
             }
         }
 
@@ -75,11 +98,27 @@ namespace BlankDroid.Services
             }
             else
             {
-
                 //default to 16 bit
                 return await GetSampleValues16Bit(path);
 
             }
+        }
+
+        private async Task RetryProcessAndSaveDisplayLines(string baseDirectory, string fileName)
+        {
+
+            Thread.Sleep(2000);
+            if (retryLog.ContainsKey(fileName))
+            {
+                retryLog[fileName] = (int)retryLog[fileName] + 1;
+            }
+            else
+            {
+                retryLog[fileName] = 1;
+            }
+            Debug.WriteLine($"{DateTime.Now.ToLongTimeString()} - Retrying {fileName} Retry count: {retryLog[fileName]}");
+
+            await ProcessAndSaveDisplayLines(baseDirectory, fileName);
         }
 
         private async Task<List<short>> GetSampleValues16Bit(string path)

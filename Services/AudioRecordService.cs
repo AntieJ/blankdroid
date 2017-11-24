@@ -2,8 +2,6 @@
 using Android.Media;
 using System.Threading.Tasks;
 using System.IO;
-using Newtonsoft.Json;
-using BlankDroid.Models;
 
 namespace BlankDroid.Services
 {
@@ -22,7 +20,6 @@ namespace BlankDroid.Services
         public async Task Start()
         {
             _endRecording = false;
-
             _audioBuffer = new Byte[100000];
             _audioRecord = new AudioRecord(
                 AudioSource.Mic,

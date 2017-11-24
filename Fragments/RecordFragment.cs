@@ -57,9 +57,15 @@ namespace BlankDroid.Fragments
 
 
                     _audioRecordService.Stop();
-                    AnalysisContext.adaptor.UpdateList();
+
+                    UpdateRecordingsList();
                 }
             };
+        }
+
+        private void UpdateRecordingsList()
+        {
+            AnalysisContext.adaptor.UpdateList();
         }
     }
 }
