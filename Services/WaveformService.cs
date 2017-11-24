@@ -12,12 +12,14 @@ namespace BlankDroid.Services
     {
         private int stepSize = 100;
         private FileService _fileService;
+        private LoggingService _loggingService;
         private Dictionary<string, int> retryLog = new Dictionary<string, int>();
         private int retryMaxCount=5;
 
         public WaveformService()
         {
             _fileService = new FileService();
+            _loggingService = new LoggingService();
         }
 
         public async Task ProcessAndSaveDisplayLines(string baseDirectory, string fileName)
@@ -38,13 +40,13 @@ namespace BlankDroid.Services
                     var displayLines = GetLinesFromSamples(ConfigService.PixelWidth, ConfigService.YAxis,
                         ConfigService.ChartHeight, samples);
                     _fileService.SaveProcessedDisplayLines(displayLines, fileName);
-                    Debug.WriteLine($"{DateTime.Now.ToLongTimeString()} - SUCEEDED processing file! {fileName} ");
-
+                    await _loggingService.Log($"{DateTime.Now.ToLongTimeString()} - SUCEEDED processing file! {fileName} ");
+                    
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"{DateTime.Now.ToLongTimeString()} - Error processing file! {fileName} {ex.Message}");
+                await _loggingService.Log($"{DateTime.Now.ToLongTimeString()} - Error processing file! {fileName} {ex.Message}");
                 
                 if(!retryLog.ContainsKey(fileName) || retryLog[fileName] < retryMaxCount)
                 {
@@ -53,7 +55,7 @@ namespace BlankDroid.Services
                 }
                 else
                 {
-                    Debug.WriteLine($"{DateTime.Now.ToLongTimeString()} - Giving up processing. {fileName} {ex.Message}");
+                    await _loggingService.Log($"{DateTime.Now.ToLongTimeString()} - Giving up processing. {fileName} {ex.Message}");
                 }
             }
         }
@@ -116,7 +118,7 @@ namespace BlankDroid.Services
             {
                 retryLog[fileName] = 1;
             }
-            Debug.WriteLine($"{DateTime.Now.ToLongTimeString()} - Retrying {fileName} Retry count: {retryLog[fileName]}");
+            await _loggingService.Log($"{DateTime.Now.ToLongTimeString()} - Retrying {fileName} Retry count: {retryLog[fileName]}");
 
             await ProcessAndSaveDisplayLines(baseDirectory, fileName);
         }

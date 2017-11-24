@@ -36,7 +36,7 @@ namespace BlankDroid.Services
         }
 
         public bool TryDeleteByFileName(string baseDirectory, string fileName)
-        {        
+        {
             try
             {
                 var audioPath = GetFullPathToRecording(baseDirectory, fileName);
@@ -62,7 +62,7 @@ namespace BlankDroid.Services
         public int GetAudioFileLengthInSeconds(string filepath)
         {
             var byteArray = GetByteArrayFromFile(filepath);
-            return (byteArray.Length / 2)/ConfigService.AudioFrequency;
+            return (byteArray.Length / 2) / ConfigService.AudioFrequency;
         }
 
         public void SaveNewMetadataFile(string fileName, int frequency, Android.Media.Encoding bitrate)
@@ -104,7 +104,6 @@ namespace BlankDroid.Services
             return $"{baseDirectory}{fileName}{ConfigService.DisplayLinesFileExtension}";
         }
 
-
         public RecordingMetadata GetRecordingMetadata(string basePath, string fileName)
         {
             try
@@ -116,7 +115,7 @@ namespace BlankDroid.Services
             {
                 return new RecordingMetadata();
             }
-            
+
         }
 
         public string GenerateFileNameWithoutExtension()
@@ -148,5 +147,16 @@ namespace BlankDroid.Services
             return File.Exists(GetFullPathToDisplayLinesFile(baseDirectory, fileName));
         }
 
+        public void SaveOrAddToTextFile(string directory, string fileName, string content)
+        {
+            var fullPath = $"{directory}{fileName}.txt";
+
+            if (File.Exists(fullPath))
+            {
+                content = content + Environment.NewLine + File.ReadAllText(fullPath);
+            }
+
+            File.WriteAllText(fullPath, content);
+        }
     }
 }
