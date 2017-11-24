@@ -10,5 +10,10 @@
 
         public static int AudioFrequency = 11025;
         public static Android.Media.Encoding AudioBitrate = Android.Media.Encoding.Pcm16bit;
+
+        public static int YAxis = 500;
+        public static int ChartHeight = 500;
+
+        public static int PixelWidth; //set dynamically
     }
 }

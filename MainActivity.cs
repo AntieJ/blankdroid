@@ -3,6 +3,7 @@ using Android.OS;
 using Android.Views;
 using Android.Support.V4.View;
 using Android.Support.V4.App;
+using BlankDroid.Services;
 
 namespace BlankDroid
 {
@@ -13,11 +14,13 @@ namespace BlankDroid
         {
             base.OnCreate(bundle);
             HideTitleBar();
+            ConfigService.PixelWidth = Resources.DisplayMetrics.WidthPixels;
             SetContentView(Resource.Layout.Main);
             ViewPager viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
             MainAdaptor adapter = new MainAdaptor(SupportFragmentManager);
             viewPager.Adapter = adapter;
             AnalysisContext.adaptor = adapter;
+
         }
 
         protected override void OnResume()

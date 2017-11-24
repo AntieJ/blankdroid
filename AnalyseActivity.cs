@@ -15,7 +15,8 @@ namespace BlankDroid
         bool _playing;
         AudioPlayService _audioPlayService;
         FileService _fileService;
-
+        string _fileName;
+        string _baseDirectory;
         string _fullAudioPath;
 
         protected override void OnCreate(Bundle bundle)
@@ -23,14 +24,18 @@ namespace BlankDroid
             base.OnCreate(bundle);
             HideTitleBar();
             _fileService = new FileService();
-            var filename = Intent.GetStringExtra("FileNameClicked") ?? "";
-            _fullAudioPath = _fileService.GetFullPathToRecording(ConfigService.BaseDirectory, filename);
-            AnalysisContext.UpdateContext(ConfigService.BaseDirectory, filename);
-            AnalysisContext.UpdateSamples(ConfigService.BaseDirectory, filename);
-            _audioPlayService = new AudioPlayService(ConfigService.BaseDirectory, filename);            
+            _fileName = Intent.GetStringExtra("FileNameClicked") ?? "";
+            _baseDirectory = ConfigService.BaseDirectory;
+            _fullAudioPath = _fileService.GetFullPathToRecording(_baseDirectory, _fileName);
+            AnalysisContext.UpdateContext(_baseDirectory, _fileName);
+            //do this on some bg thread...?
+            AnalysisContext.UpdateSamples(_baseDirectory, _fileName);
+            //along with the display lines process....
+            //////
+            _audioPlayService = new AudioPlayService(_baseDirectory, _fileName);            
             SetContentView(Resource.Layout.AnalyseActivity);
             SetupButtons();
-            FindViewById<TextView>(Resource.Id.title).Text = _fullAudioPath.Replace(ConfigService.BaseDirectory,"");
+            FindViewById<TextView>(Resource.Id.title).Text = _fullAudioPath.Replace(_baseDirectory,"");
             _playing = false;
             SetPlayButtonIcon();
         }
@@ -110,7 +115,7 @@ namespace BlankDroid
 
         private void DeleteFile()
         {
-            var deleteSucceeded = _fileService.TryDelete(_fullAudioPath);
+            var deleteSucceeded = _fileService.TryDeleteByFileName(_baseDirectory, _fileName);
             if (deleteSucceeded)
             {
                 AnalysisContext.adaptor.UpdateList();

@@ -10,15 +10,11 @@ namespace BlankDroid.Views
 {
     public class WaveformView : View
     {
-        AudioSampleService _audioSampleService;
         WaveformService _waveformService;
-        FileService _fileService;
-        int yAxis = 500;
-        int chartHeight = 500;
+        FileService _fileService;        
         static string _path;
 
         public WaveformView(Context context, IAttributeSet attrs) : base(context) {
-            _audioSampleService = new AudioSampleService();
             _waveformService = new WaveformService();
             _fileService = new FileService();
             _path = AnalysisContext.FullAudioPath;
@@ -27,7 +23,8 @@ namespace BlankDroid.Views
         protected override void OnDraw(Canvas canvas)
         {
             canvas.Scale((float)1, (float)0.5);
-            DrawGraph(canvas, AnalysisContext.samples);            
+            var displayLines = GetDisplayLines(canvas, AnalysisContext.samples);
+            DrawGraph(canvas, displayLines);          
         }
 
         private void DrawInfo(Canvas canvas, List<short> samples, float x, float y)
@@ -37,7 +34,14 @@ namespace BlankDroid.Views
                 x, y, PaintService.GetDefaultTextPaint());            
         }
 
-        private void DrawGraph(Canvas canvas, List<short> samples)
+        private void DrawGraph(Canvas canvas, SimpleLine[] lines)
+        {           
+            var baseLine = _waveformService.GetBaseLine(canvas.Width, ConfigService.YAxis);
+            DrawLines(canvas, lines, PaintService.GetRed());
+            DrawLine(canvas, baseLine, PaintService.GetBlue());
+        }        
+
+        private SimpleLine[] GetDisplayLines(Canvas canvas, List<short> samples)
         {
             SimpleLine[] displayLines;
             if (_fileService.ProcessedDisplayLinesFileExists(AnalysisContext.BaseDirectory, AnalysisContext.FileName))
@@ -46,15 +50,12 @@ namespace BlankDroid.Views
             }
             else
             {
-                displayLines = _waveformService.GetLinesFromSamples(canvas.Width, yAxis, chartHeight, samples);
+                displayLines = _waveformService.GetLinesFromSamples(canvas.Width, ConfigService.YAxis, ConfigService.ChartHeight, samples);
                 _fileService.SaveProcessedDisplayLines(displayLines, AnalysisContext.FileName);
-            }           
+            }
 
-            var baseLine = _waveformService.GetBaseLine(canvas.Width, yAxis);
-
-            DrawLines(canvas, displayLines, PaintService.GetRed());
-            DrawLine(canvas, baseLine, PaintService.GetBlue());
-        }        
+            return displayLines;
+        }
 
         private void DrawLines(Canvas canvas, SimpleLine[] linesToDraw, Paint paint)
         {

@@ -35,11 +35,17 @@ namespace BlankDroid.Services
             return values;
         }
 
-        public bool TryDelete(string filepath)
-        {
+        public bool TryDeleteByFileName(string baseDirectory, string fileName)
+        {        
             try
             {
-                File.Delete(filepath);
+                var audioPath = GetFullPathToRecording(baseDirectory, fileName);
+                var metadataPath = GetFullPathToMetadata(baseDirectory, fileName);
+                var displayLinesPath = GetFullPathToDisplayLinesFile(baseDirectory, fileName);
+                File.Delete(audioPath);
+                File.Delete(metadataPath);
+                File.Delete(displayLinesPath);
+
                 return true;
             }
             catch (IOException)

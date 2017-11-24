@@ -2,19 +2,21 @@
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using System.IO;
 using BlankDroid.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlankDroid.Fragments
 {
     public class RecordingListFragment : Android.Support.V4.App.ListFragment
     {
         FileService _fileService;
+        WaveformService _waveformService;
 
         public RecordingListFragment()
         {
             _fileService = new FileService();
+            _waveformService = new WaveformService();
         }
 
         public static RecordingListFragment newInstance()
@@ -39,6 +41,19 @@ namespace BlankDroid.Fragments
         {
             var values = _fileService.GetFilesFromDirectory(ConfigService.BaseDirectory, ConfigService.AudioFileExtension);
             this.ListAdapter = new ArrayAdapter<string>(Activity, Android.Resource.Layout.SimpleExpandableListItem1, values);
+
+            Task.Run(async () =>
+            {
+                await ProcessRecordings(ConfigService.BaseDirectory, values);
+            });
+        }
+
+        private async Task ProcessRecordings(string baseDirectory, List<string> fileNames)
+        {
+            foreach( var file in fileNames)
+            {
+                await _waveformService.ProcessAndSaveDisplayLines(baseDirectory, file);
+            }
         }
     }
 }

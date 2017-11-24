@@ -35,11 +35,11 @@ namespace BlankDroid
 
         private static void UpdateSamples()
         {
-            var audioSampleService = new AudioSampleService();
+            var waveFormService = new WaveformService();
 
             Task.Run(() =>
             {
-                samples = audioSampleService.GetSampleValues(FullAudioPath, _metadata.AudioBitrate).Result;
+                samples = waveFormService.GetSampleValues(FullAudioPath, _metadata.AudioBitrate).Result;
             });
         }
     }
