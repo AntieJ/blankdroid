@@ -4,10 +4,11 @@ using Android.Views;
 using Android.Support.V4.View;
 using Android.Support.V4.App;
 using BlankDroid.Services;
+using Android.Content.PM;
 
 namespace BlankDroid
 {
-    [Activity(Label = "BlankDroid", MainLauncher = true)]
+    [Activity(Label = "BlankDroid", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : FragmentActivity
     {
         protected override void OnCreate(Bundle bundle)
