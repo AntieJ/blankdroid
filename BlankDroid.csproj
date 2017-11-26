@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="AnalyseActivity.cs" />
     <Compile Include="AnalysisContext.cs" />
+    <Compile Include="Fragments\FactorsInputFragment.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\RecordingMetadata.cs" />
     <Compile Include="Models\SimpleLine.cs" />
@@ -128,6 +129,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\RecordingInfoFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FactorsInputFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -31,5 +31,6 @@ C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Deb
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\recordinginfofragment.xml
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Newtonsoft.Json.dll
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Newtonsoft.Json.xml
+C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\factorsinputfragment.xml
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\BlankDroid.dll.mdb
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\BlankDroid.dll.mdb
