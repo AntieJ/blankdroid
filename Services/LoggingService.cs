@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace BlankDroid.Services
 {
     class LoggingService
     {
-        private bool WriteToDebug = true;
+        private bool WriteToDebug = false;
         private bool WriteToFile = true;
-        private FileService _fileService;
         private string logDirectory = ConfigService.BaseDirectory;
         private string fileName;
 
-        public LoggingService()
+        public void Log(string message)
         {
-            _fileService = new FileService();
-            fileName = DateTime.UtcNow.ToString("dd-MM-yy")+"-Log";
+            Task.Run(async () =>
+            {
+                await LogAsync(message);
+            });
         }
 
-        public async Task Log(string message)
+        public async Task LogAsync(string message)
         {
             fileName = DateTime.UtcNow.ToString("dd-MM-yy") + "-Log";
             await Task.Run(() =>
@@ -32,9 +34,22 @@ namespace BlankDroid.Services
 
                 if (WriteToFile)
                 {
-                    _fileService.SaveOrAddToTextFile(logDirectory, fileName, messageToLog);
+                    SaveOrAddToTextFile(logDirectory, fileName, messageToLog);
                 }
             });   
+        }
+
+        //Can't use FileService, otherwise circular reference
+        private void SaveOrAddToTextFile(string directory, string fileName, string content)
+        {
+            var fullPath = $"{directory}{fileName}.txt";
+
+            if (File.Exists(fullPath))
+            {
+                content = content + Environment.NewLine + File.ReadAllText(fullPath);
+            }
+
+            File.WriteAllText(fullPath, content);
         }
     }
 }

@@ -12,7 +12,8 @@ namespace BlankDroid.Fragments
         TextView _recordingStatus;
         bool _recording;
 
-        public RecordFragment() {
+        public RecordFragment()
+        {
             _audioRecordService = new AudioRecordService();
         }
 
@@ -36,6 +37,8 @@ namespace BlankDroid.Fragments
             _recordingStatus.Text = "Click to Record";
 
             _recording = false;
+            
+
             return view;
         }
 

@@ -8,6 +8,13 @@ namespace BlankDroid.Services
 {
     public class FileService
     {
+        private LoggingService _loggingService;
+
+        public FileService()
+        {
+            _loggingService = new LoggingService();
+        }
+
         public byte[] GetByteArrayFromFile(string filePath)
         {
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
@@ -111,8 +118,9 @@ namespace BlankDroid.Services
                 var metadataString = File.ReadAllText($"{basePath}{fileName}{ConfigService.MetadataFileExtension}");
                 return JsonConvert.DeserializeObject<RecordingMetadata>(metadataString);
             }
-            catch
+            catch(Exception ex)
             {
+                _loggingService.Log($"Failed to get metadata for {fileName}: {ex.Message}");
                 return new RecordingMetadata();
             }
 
@@ -145,18 +153,6 @@ namespace BlankDroid.Services
         public bool ProcessedDisplayLinesFileExists(string baseDirectory, string fileName)
         {
             return File.Exists(GetFullPathToDisplayLinesFile(baseDirectory, fileName));
-        }
-
-        public void SaveOrAddToTextFile(string directory, string fileName, string content)
-        {
-            var fullPath = $"{directory}{fileName}.txt";
-
-            if (File.Exists(fullPath))
-            {
-                content = content + Environment.NewLine + File.ReadAllText(fullPath);
-            }
-
-            File.WriteAllText(fullPath, content);
-        }
+        }        
     }
 }

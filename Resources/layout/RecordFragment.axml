@@ -23,4 +23,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"/>
+
+  <TextView
+      android:id="@+id/factors"
+          android:text="Factors"
+          android:textSize="10pt"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"/>
+  <CheckBox android:id="@+id/alcoholCheckbox"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+            android:textSize="10pt"
+          android:text="Alcohol" />
+  <CheckBox android:id="@+id/caffeineCheckbox"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="10pt"
+          android:text="Caffeine" />
+  <CheckBox android:id="@+id/bathCheckbox"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="10pt"
+          android:text="Bath" />
 </LinearLayout>

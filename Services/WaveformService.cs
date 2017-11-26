@@ -3,7 +3,6 @@ using System.Linq;
 using BlankDroid.Models;
 using System.Threading.Tasks;
 using System;
-using System.Diagnostics;
 using System.Threading;
 
 namespace BlankDroid.Services
@@ -40,13 +39,13 @@ namespace BlankDroid.Services
                     var displayLines = GetLinesFromSamples(ConfigService.PixelWidth, ConfigService.YAxis,
                         ConfigService.ChartHeight, samples);
                     _fileService.SaveProcessedDisplayLines(displayLines, fileName);
-                    await _loggingService.Log($"{DateTime.Now.ToLongTimeString()} - SUCEEDED processing file! {fileName} ");
+                    await _loggingService.LogAsync($"Processed file succesfully: {fileName} ");
                     
                 }
             }
             catch (Exception ex)
             {
-                await _loggingService.Log($"{DateTime.Now.ToLongTimeString()} - Error processing file! {fileName} {ex.Message}");
+                await _loggingService.LogAsync($"Error processing file! {fileName} {ex.Message}");
                 
                 if(!retryLog.ContainsKey(fileName) || retryLog[fileName] < retryMaxCount)
                 {
@@ -55,7 +54,7 @@ namespace BlankDroid.Services
                 }
                 else
                 {
-                    await _loggingService.Log($"{DateTime.Now.ToLongTimeString()} - Giving up processing. {fileName} {ex.Message}");
+                    await _loggingService.LogAsync($"Giving up processing. {fileName} {ex.Message}");
                 }
             }
         }
@@ -118,7 +117,7 @@ namespace BlankDroid.Services
             {
                 retryLog[fileName] = 1;
             }
-            await _loggingService.Log($"{DateTime.Now.ToLongTimeString()} - Retrying {fileName} Retry count: {retryLog[fileName]}");
+            await _loggingService.LogAsync($"Retrying {fileName} Retry count: {retryLog[fileName]}");
 
             await ProcessAndSaveDisplayLines(baseDirectory, fileName);
         }

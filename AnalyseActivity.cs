@@ -10,29 +10,27 @@ namespace BlankDroid
     [Activity(Label = "BlankDroid")]
     public class AnalyseActivity : Activity
     {
-        ImageButton _deleteRecordingButton;
-        ImageButton _playPauseButton;
-        bool _playing;
-        AudioPlayService _audioPlayService;
-        FileService _fileService;
-        string _fileName;
-        string _baseDirectory;
-        string _fullAudioPath;
+        private ImageButton _deleteRecordingButton;
+        private ImageButton _playPauseButton;
+        private bool _playing;
+        private AudioPlayService _audioPlayService;
+        private FileService _fileService;
+        private string _fileName;
+        private string _baseDirectory;
+        private string _fullAudioPath;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             HideTitleBar();
+
             _fileService = new FileService();
             _fileName = Intent.GetStringExtra("FileNameClicked") ?? "";
             _baseDirectory = ConfigService.BaseDirectory;
             _fullAudioPath = _fileService.GetFullPathToRecording(_baseDirectory, _fileName);
+            _audioPlayService = new AudioPlayService(_baseDirectory, _fileName);
+            
             AnalysisContext.UpdateContext(_baseDirectory, _fileName);
-            //do this on some bg thread...?
-            AnalysisContext.UpdateSamples(_baseDirectory, _fileName);
-            //along with the display lines process....
-            //////
-            _audioPlayService = new AudioPlayService(_baseDirectory, _fileName);            
             SetContentView(Resource.Layout.AnalyseActivity);
             SetupButtons();
             FindViewById<TextView>(Resource.Id.title).Text = _fullAudioPath.Replace(_baseDirectory,"");

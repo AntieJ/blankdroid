@@ -273,11 +273,20 @@ namespace BlankDroid
 			// aapt resource value: 0x7f0a0020
 			public const int actions = 2131361824;
 			
+			// aapt resource value: 0x7f0a0028
+			public const int alcoholCheckbox = 2131361832;
+			
 			// aapt resource value: 0x7f0a0005
 			public const int async = 2131361797;
 			
+			// aapt resource value: 0x7f0a002a
+			public const int bathCheckbox = 2131361834;
+			
 			// aapt resource value: 0x7f0a0006
 			public const int blocking = 2131361798;
+			
+			// aapt resource value: 0x7f0a0029
+			public const int caffeineCheckbox = 2131361833;
 			
 			// aapt resource value: 0x7f0a0013
 			public const int cancel_action = 2131361811;
@@ -285,14 +294,17 @@ namespace BlankDroid
 			// aapt resource value: 0x7f0a001b
 			public const int chronometer = 2131361819;
 			
-			// aapt resource value: 0x7f0a0027
-			public const int content = 2131361831;
+			// aapt resource value: 0x7f0a002b
+			public const int content = 2131361835;
 			
 			// aapt resource value: 0x7f0a000c
 			public const int deleteRecording = 2131361804;
 			
 			// aapt resource value: 0x7f0a0022
 			public const int end_padder = 2131361826;
+			
+			// aapt resource value: 0x7f0a0027
+			public const int factors = 2131361831;
 			
 			// aapt resource value: 0x7f0a0007
 			public const int forever = 2131361799;
