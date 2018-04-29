@@ -124,8 +124,8 @@ namespace BlankDroid.Services
 
         private async Task<List<short>> GetSampleValues16Bit(string path)
         {
-            var fileService = new FileService();
-            var buffer = fileService.GetByteArrayFromFile(path);
+            //var fileService = new FileService();
+            var buffer = _fileService.GetByteArrayFromFile(path);
             var sampleList = new List<Int16>();
 
             await Task.Run(() =>
@@ -136,15 +136,15 @@ namespace BlankDroid.Services
                     sampleList.Add(sample);
                 }
             });
-
+            
             return sampleList;
         }
 
         //todo: Thread never completes.
         private async Task<List<short>> GetSampleValues8Bit(string path)
         {
-            var fileService = new FileService();
-            var buffer = fileService.GetByteArrayFromFile(path);
+            //var fileService = new FileService();
+            var buffer = _fileService.GetByteArrayFromFile(path);
             var sampleList = new List<Int16>();
             await Task.Run(() =>
             {

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace BlankDroid.Services
 {
@@ -17,14 +18,29 @@ namespace BlankDroid.Services
 
         public byte[] GetByteArrayFromFile(string filePath)
         {
-            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            var binaryReader = new BinaryReader(fileStream);
-            var buffer = binaryReader.ReadBytes((Int32)new FileInfo(filePath).Length);
+            //var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            //var binaryReader = new BinaryReader(fileStream);
+            //var buffer = binaryReader.ReadBytes((Int32)new FileInfo(filePath).Length);
 
-            fileStream.Close();
-            fileStream.Dispose();
-            binaryReader.Close();
-            binaryReader.Dispose();
+            //fileStream.Close();
+            //fileStream.Dispose();
+            //binaryReader.Close();
+            //binaryReader.Dispose();
+
+            //return buffer;
+
+            byte[] buffer;
+            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+
+                var binaryReader = new BinaryReader(fileStream);
+                buffer = binaryReader.ReadBytes((Int32)new FileInfo(filePath).Length);
+                
+                fileStream.Close();
+                fileStream.Dispose();
+                binaryReader.Close();
+                binaryReader.Dispose();
+            }
 
             return buffer;
         }
@@ -72,14 +88,49 @@ namespace BlankDroid.Services
             return (byteArray.Length / 2) / ConfigService.AudioFrequency;
         }
 
-        public void SaveNewMetadataFile(string fileName, int frequency, Android.Media.Encoding bitrate)
+        public void SaveNewMetadataFile(string fileName, int frequency, Android.Media.Encoding bitrate, 
+            Dictionary<string, bool> factors, string note)
         {
-            File.WriteAllText(GetFullPathToNewMetadata(fileName), JsonConvert.SerializeObject(new RecordingMetadata()
+            //File.WriteAllText(GetFullPathToNewMetadata(fileName), JsonConvert.SerializeObject(new RecordingMetadata()
+            //{
+            //    AudioFrequency = frequency,
+            //    AudioBitrate = bitrate,
+            //    Factors = factors,
+            //    Note = note
+            //}));
+
+
+            using (var fs = new FileStream(GetFullPathToNewMetadata(fileName), FileMode.Create, FileAccess.Write))
             {
-                AudioFrequency = frequency,
-                AudioBitrate = bitrate
-            }));
+
+                string dataasstring = JsonConvert.SerializeObject(new RecordingMetadata()
+                {
+                    AudioFrequency = frequency,
+                    AudioBitrate = bitrate,
+                    Factors = factors,
+                    Note = note
+                }); //your data
+                byte[] info = new UTF8Encoding(true).GetBytes(dataasstring);
+                fs.Write(info, 0, info.Length);
+                fs.Close();
+            }
+
+
         }
+
+        //public void UpdateMetadataFile(string fileName, int frequency, Android.Media.Encoding bitrate, Dictionary<string, bool> factors, string note)
+        //{
+        //    //get file
+        //    //overwrite variables
+        //    //save file
+        //    File.WriteAllText(GetFullPathToNewMetadata(fileName), JsonConvert.SerializeObject(new RecordingMetadata()
+        //    {
+        //        AudioFrequency = frequency,
+        //        AudioBitrate = bitrate,
+        //        Factors = factors,
+        //        Note = note
+        //    }));
+        //}
 
         public string GetFullPathToNewMetadata(string fileName)
         {
@@ -135,7 +186,18 @@ namespace BlankDroid.Services
         public bool SaveProcessedDisplayLines(SimpleLine[] lineArray, string fileName)
         {
             var jsonArray = JsonConvert.SerializeObject(lineArray);
-            File.WriteAllText(GetFullPathToNewDisplayLinesFile(fileName), jsonArray);
+            //File.WriteAllText(GetFullPathToNewDisplayLinesFile(fileName), jsonArray);
+
+            using (var fs = new FileStream(GetFullPathToNewDisplayLinesFile(fileName), FileMode.Create, FileAccess.Write))
+            {
+
+                string dataasstring = jsonArray; //your data
+                byte[] info = new UTF8Encoding(true).GetBytes(dataasstring);
+                fs.Write(info, 0, info.Length);
+                fs.Close();
+            }
+
+
             return true;
         }
 

@@ -7,13 +7,15 @@
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.INTERNET" />
   <application android:allowBackup="true" android:label="@string/app_name" android:name="android.app.Application" android:debuggable="true">
-    <activity android:label="BlankDroid" android:name="md57af922a912a9c1d2e90b297c1016fe19.AnalyseActivity" />
+    <activity android:label="BlankDroid" android:screenOrientation="portrait" android:name="md57af922a912a9c1d2e90b297c1016fe19.AnalyseActivity" />
     <activity android:label="BlankDroid" android:screenOrientation="portrait" android:name="md57af922a912a9c1d2e90b297c1016fe19.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity android:label="BlankDroid" android:screenOrientation="portrait" android:name="md57af922a912a9c1d2e90b297c1016fe19.NotesActivity" />
+    <activity android:label="BlankDroid" android:screenOrientation="portrait" android:name="md57af922a912a9c1d2e90b297c1016fe19.RecordingActivity" />
     <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="BlankDroid.BlankDroid.mono.MonoRuntimeProvider.__mono_init__" />
     <!--suppress ExportedReceiver-->
     <receiver android:name="mono.android.Seppuku">

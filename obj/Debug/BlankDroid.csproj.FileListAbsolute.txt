@@ -33,4 +33,41 @@ C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Deb
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Newtonsoft.Json.xml
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\factorsinputfragment.xml
 C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\BlankDroid.dll.mdb
-C:\AntonJ\Coding Projects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\BlankDroid.dll.mdb
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\BlankDroid.dll
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\BlankDroid.pdb
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\BlankDroid.BlankDroid.apk
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\BlankDroid.BlankDroid-Signed.apk
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Newtonsoft.Json.dll
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Xamarin.Android.Support.Annotations.dll
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Xamarin.Android.Support.Compat.dll
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Xamarin.Android.Support.Core.UI.dll
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Xamarin.Android.Support.Core.Utils.dll
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Xamarin.Android.Support.Fragment.dll
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Xamarin.Android.Support.Media.Compat.dll
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Xamarin.Android.Support.v4.dll
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\Newtonsoft.Json.xml
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\BlankDroid.csprojResolveAssemblyReference.cache
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\BlankDroid.csproj.CoreCompileInputs.cache
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\BlankDroid.dll
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\BlankDroid.pdb
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\bin\BlankDroid.BlankDroid.apk
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\recordfragment.xml
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\playfragment.xml
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\analyseactivity.xml
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\recordinglistfragment.xml
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\recordinginfofragment.xml
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\factorsinputfragment.xml
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\main.xml
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\values\strings.xml
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\drawable\mic.png
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\drawable\pause.png
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\drawable\play.png
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\drawable\delete.png
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\R.cs.flag
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\uploadflags.txt
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\BlankDroid.dll.mdb
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\android\assets\BlankDroid.dll.mdb
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\recordingactivity.xml
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\res\layout\notesactivity.xml
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\obj\Debug\BlankDroid.dll.mdb
+C:\AntonJ\CodingProjects\BlankXamarin\AndroidOnly\BlankDroid\BlankDroid\bin\Debug\BlankDroid.dll.mdb

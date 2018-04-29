@@ -10,6 +10,14 @@ BlankDroid.MainAdaptor, BlankDroid;md57af922a912a9c1d2e90b297c1016fe19.MainAdapt
 BlankDroid.MainAdaptor, BlankDroid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57af922a912a9c1d2e90b297c1016fe19.MainAdaptor
 BlankDroid.MainAdaptor;md57af922a912a9c1d2e90b297c1016fe19.MainAdaptor
 blankdroid.MainAdaptor;md57af922a912a9c1d2e90b297c1016fe19.MainAdaptor
+BlankDroid.NotesActivity, BlankDroid;md57af922a912a9c1d2e90b297c1016fe19.NotesActivity
+BlankDroid.NotesActivity, BlankDroid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57af922a912a9c1d2e90b297c1016fe19.NotesActivity
+BlankDroid.NotesActivity;md57af922a912a9c1d2e90b297c1016fe19.NotesActivity
+blankdroid.NotesActivity;md57af922a912a9c1d2e90b297c1016fe19.NotesActivity
+BlankDroid.RecordingActivity, BlankDroid;md57af922a912a9c1d2e90b297c1016fe19.RecordingActivity
+BlankDroid.RecordingActivity, BlankDroid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57af922a912a9c1d2e90b297c1016fe19.RecordingActivity
+BlankDroid.RecordingActivity;md57af922a912a9c1d2e90b297c1016fe19.RecordingActivity
+blankdroid.RecordingActivity;md57af922a912a9c1d2e90b297c1016fe19.RecordingActivity
 BlankDroid.Views.WaveformView, BlankDroid;md5d437aa7278f5c7569e82f7a9a0ec643c.WaveformView
 BlankDroid.Views.WaveformView, BlankDroid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5d437aa7278f5c7569e82f7a9a0ec643c.WaveformView
 BlankDroid.Views.WaveformView;md5d437aa7278f5c7569e82f7a9a0ec643c.WaveformView

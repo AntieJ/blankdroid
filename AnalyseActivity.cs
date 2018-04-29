@@ -1,13 +1,13 @@
 ﻿using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using BlankDroid.Services;
-using System.IO;
 
 namespace BlankDroid
 {
-    [Activity(Label = "BlankDroid")]
+    [Activity(Label = "BlankDroid", ScreenOrientation = ScreenOrientation.Portrait)]
     public class AnalyseActivity : Activity
     {
         private ImageButton _deleteRecordingButton;
@@ -25,7 +25,7 @@ namespace BlankDroid
             HideTitleBar();
 
             _fileService = new FileService();
-            _fileName = Intent.GetStringExtra("FileNameClicked") ?? "";
+            _fileName = Intent.GetStringExtra("FileNameClicked") ?? RecordingContext.filename;
             _baseDirectory = ConfigService.BaseDirectory;
             _fullAudioPath = _fileService.GetFullPathToRecording(_baseDirectory, _fileName);
             _audioPlayService = new AudioPlayService(_baseDirectory, _fileName);
@@ -46,6 +46,11 @@ namespace BlankDroid
         protected override void OnPause()
         {
             base.OnPause();
+        }
+
+        public override void OnBackPressed()
+        {
+            StartActivity(typeof(MainActivity));
         }
 
         private void HideTitleBar()

@@ -5,19 +5,19 @@ using System.IO;
 
 namespace BlankDroid.Services
 {
-    public class AudioRecordService
+    public static class AudioRecordService
     {
-        AudioRecord _audioRecord;
-        Byte[] _audioBuffer;
-        bool _endRecording;
-        FileService _fileService;
+        static AudioRecord _audioRecord;
+        static Byte[] _audioBuffer;
+        static bool _endRecording;
+        static FileService _fileService = new FileService();
 
-        public AudioRecordService()
-        {
-            _fileService = new FileService();
-        }
+        //public AudioRecordService()
+        //{
+        //    _fileService = new FileService();
+        //}
 
-        public async Task Start()
+        public static async Task Start(string filename)
         {
             _endRecording = false;
             _audioBuffer = new Byte[100000];
@@ -30,31 +30,33 @@ namespace BlankDroid.Services
             );
 
             _audioRecord.StartRecording();
-            await ReadAudioAsync();
+            await ReadAudioAsync(filename);
         }
 
-        public void Stop()
+        public static void Stop()
         {
             _endRecording = true;
+
             //Thread.Sleep(500); // Give it time to drop out.
         }
 
-        private async Task ReadAudioAsync()
+        private static async Task ReadAudioAsync(string filename)
         {
             if (!Directory.Exists(ConfigService.BaseDirectory))
             {
                 Directory.CreateDirectory(ConfigService.BaseDirectory);
             }
 
-            var newFilename = _fileService.GenerateFileNameWithoutExtension();
 
-            using (var fileStream = new FileStream(_fileService.GetFullPathToNewRecording(newFilename), FileMode.Create, FileAccess.Write))
+            using (var fileStream = new FileStream(_fileService.GetFullPathToNewRecording(filename), FileMode.Create, FileAccess.Write))
             {
                 while (true)
                 {
                     if (_endRecording)
                     {
                         _endRecording = false;
+                        fileStream.Close();
+                        fileStream.Dispose();
                         break;
                     }
 
@@ -71,10 +73,11 @@ namespace BlankDroid.Services
                 }
 
                 fileStream.Close();
+                fileStream.Dispose();
             }
             _audioRecord.Stop();
             _audioRecord.Release();
-            _fileService.SaveNewMetadataFile(newFilename, ConfigService.AudioFrequency, ConfigService.AudioBitrate);
+            
         }
     }
 }

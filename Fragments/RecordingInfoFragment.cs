@@ -26,9 +26,9 @@ namespace BlankDroid.Fragments
         private string GetContent()
         {
             var metadata = _fileService.GetRecordingMetadata($"{ConfigService.BaseDirectory}",$"{AnalysisContext.FileName}");
-            return $"Size: {_fileService.GetFileSizeInKB(_fullAudioPath)}kB "+
+            return $"Size: "+//{_fileService.GetFileSizeInKB(_fullAudioPath)}kB "+
                 "\n" +
-                $"Length: {_fileService.GetAudioFileLengthInSeconds(_fullAudioPath)}S" +
+                $"Length: "+//{_fileService.GetAudioFileLengthInSeconds(_fullAudioPath)}S" +
                 "\n" +
                 "Date" +
                 "\n" +

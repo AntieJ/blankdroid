@@ -2,6 +2,7 @@
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using BlankDroid.Services;
 using static Android.Widget.TextView;
 
 namespace BlankDroid.Fragments
@@ -25,6 +26,10 @@ namespace BlankDroid.Fragments
                 cb.SetText(factor, BufferType.Normal);
                 LinearLayout ll = (LinearLayout)view.FindViewById(Resource.Id.factorsLinearLayout);
                 ll.AddView(cb);
+                cb.Click += delegate
+                {
+                    FactorService.UpdateContext(factor, cb.Checked);
+                };
             }            
         }
     }
