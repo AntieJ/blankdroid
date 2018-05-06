@@ -9,7 +9,6 @@ namespace BlankDroid.Services
 {
     public class WaveformService
     {
-        private int stepSize = 100;
         private FileService _fileService;
         private LoggingService _loggingService;
         private Dictionary<string, int> retryLog = new Dictionary<string, int>();
@@ -25,10 +24,6 @@ namespace BlankDroid.Services
         {
             try
             {
-                var audioPath = _fileService.GetFullPathToRecording(baseDirectory, fileName);
-                var metadata = _fileService.GetRecordingMetadata(baseDirectory, fileName);
-                var samples = await GetSampleValues(audioPath, metadata.AudioBitrate);
-
                 if (_fileService.ProcessedDisplayLinesFileExists(baseDirectory, fileName))
                 {
                     //nothing to do
@@ -36,10 +31,15 @@ namespace BlankDroid.Services
                 }
                 else
                 {
+                    var audioPath = _fileService.GetFullPathToRecording(baseDirectory, fileName);
+                    var metadata = _fileService.GetRecordingMetadata(baseDirectory, fileName);
+                    var samples = await GetSampleValues(audioPath, metadata.AudioBitrate);
+
                     var displayLines = GetLinesFromSamples(ConfigService.PixelWidth, ConfigService.YAxis,
                         ConfigService.ChartHeight, samples);
                     _fileService.SaveProcessedDisplayLines(displayLines, fileName);
                     await _loggingService.LogAsync($"Processed file succesfully: {fileName} ");
+
                     
                 }
             }
@@ -62,13 +62,16 @@ namespace BlankDroid.Services
 
         public SimpleLine[] GetLinesFromSamples(int screenWidth, int yAxis, int chartHeight, List<short> samples)
         {
+            var stepSize = (int)Math.Ceiling(samples.Count / (decimal)5000);
             var smallBufferArray = GetFilteredArray(samples, stepSize);
             var sampleLines = new SimpleLine[smallBufferArray.Length];
+            var arrayMax = (float)smallBufferArray.Max();
+            var arrayLength = smallBufferArray.Length;
 
-            for (var i = 0; i < (smallBufferArray.Length); i++)
+            for (var i = 0; i < (arrayLength); i++)
             {
-                float xAnchor = ((float)i / (float)smallBufferArray.Length) * screenWidth;
-                float lineHeightPercent = (float)smallBufferArray[i] / (float)smallBufferArray.Max();
+                float xAnchor = ((float)i / (float)arrayLength) * screenWidth;
+                float lineHeightPercent = (float)smallBufferArray[i] / arrayMax;
                 float lineHeightScaled = (float)lineHeightPercent * (float)chartHeight;
                 var lineHeight = (float)yAxis - (float)lineHeightScaled;
 
@@ -77,6 +80,13 @@ namespace BlankDroid.Services
                     Start = new System.Drawing.Point((int)xAnchor, yAxis),
                     End = new System.Drawing.Point((int)xAnchor, (int)lineHeight)
                 };
+
+                if (i % 10000 == 0)
+                {
+                    System.Diagnostics.Debug.WriteLine("linesfromsamples, i is: " + i);
+
+                }
+
             }
 
             return sampleLines;
@@ -134,6 +144,11 @@ namespace BlankDroid.Services
                 {
                     Int16 sample = BitConverter.ToInt16(buffer, n);
                     sampleList.Add(sample);
+                    if (n % 1000000 == 0)
+                    {
+                        System.Diagnostics.Debug.WriteLine("samples16bit, n is: " + n);
+
+                    }
                 }
             });
             
@@ -169,7 +184,30 @@ namespace BlankDroid.Services
             Consider lowering the sample frequency of recording
             This could be done on file read*/
 
-            return samples.Where((x, i) => i % stepSize == 0).ToArray();
+            var filtered = samples.Where((x, i) => i % stepSize == 0).ToList();
+
+            //remove highest and lowest X samples ->make rendering look better, removes pops
+            for(var i=0; i < 10; i++)
+            {
+                //var maxIndex = samples.IndexOf(samples.Max());
+                filtered.Remove(filtered.Max());
+                filtered.Remove(filtered.Min());
+            }
+            
+
+            return filtered.ToArray();
+        }
+
+        private SimpleLine[] GetSubsetOfLines(SimpleLine[] allLines)
+        {
+            //on large records, we dont need to display ALL the lines
+            var spacer = (int)Math.Ceiling(allLines.Length / (decimal)1500);
+            var filteredLines = new List<SimpleLine>();
+            for (var i = 0; i < (allLines.Length); i = i + spacer)
+            {
+                filteredLines.Add(allLines[i]);
+            }
+            return filteredLines.ToArray();
         }
     }
 }

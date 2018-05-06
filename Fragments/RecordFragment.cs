@@ -3,6 +3,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using BlankDroid.Services;
+using System;
 
 namespace BlankDroid.Fragments
 {
@@ -60,7 +61,10 @@ namespace BlankDroid.Fragments
                 {
                     var intent = new Intent(Context, typeof(RecordingActivity)); ;
                     StartActivity(intent);
+                    //OverridePendingTransition(Resource.Anim.left_in, Resource.Anim.left_out);
+                
                     RecordingContext.filename = _fileService.GenerateFileNameWithoutExtension();
+                    RecordingContext.startedAt = DateTime.Now;
                     _recordingButton.SetBackgroundColor(new Android.Graphics.Color(125, 0, 0));
                     _recordingStatus.Text = "Recording...";
                     await AudioRecordService.Start(RecordingContext.filename);
@@ -69,13 +73,20 @@ namespace BlankDroid.Fragments
                 }
                 else
                 {
-                    _recordingButton.SetBackgroundColor(new Android.Graphics.Color(0, 125, 0));
-                    _recordingStatus.Text = "Click to Record";
+                    //this is done by the recording activity now
+
+                    //_recordingButton.SetBackgroundColor(new Android.Graphics.Color(0, 125, 0));
+                    //_recordingStatus.Text = "Click to Record";
 
 
-                    AudioRecordService.Stop();
-                    _fileService.SaveNewMetadataFile(RecordingContext.filename, ConfigService.AudioFrequency, ConfigService.AudioBitrate, FactorService.GetContext(), null);
-                    UpdateRecordingsList();
+                    //AudioRecordService.Stop();
+                    //_fileService.SaveNewMetadataFile(RecordingContext.filename, 
+                    //    RecordingContext.startedAt,
+                    //    ConfigService.AudioFrequency, 
+                    //    ConfigService.AudioBitrate, 
+                    //    FactorService.GetContext(), 
+                    //    null);
+                    //UpdateRecordingsList();
                 }
             };
         }

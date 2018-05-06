@@ -5,6 +5,7 @@ using Android.Graphics;
 using BlankDroid.Services;
 using System.Collections.Generic;
 using BlankDroid.Models;
+using System;
 
 namespace BlankDroid.Views
 {
@@ -37,6 +38,7 @@ namespace BlankDroid.Views
         private void DrawGraph(Canvas canvas, SimpleLine[] lines)
         {           
             var baseLine = _waveformService.GetBaseLine(canvas.Width, ConfigService.YAxis);
+            
             DrawLines(canvas, lines, PaintService.GetRed());
             DrawLine(canvas, baseLine, PaintService.GetBlue());
         }        
@@ -61,7 +63,7 @@ namespace BlankDroid.Views
         {
             if (linesToDraw == null)
                 return;
-            
+
             for (var i = 0; i < (linesToDraw.Length); i++)
             {
                 DrawLine(canvas, linesToDraw[i], paint);

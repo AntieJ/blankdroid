@@ -3,7 +3,9 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using BlankDroid.Models;
 using BlankDroid.Services;
+using System;
 
 namespace BlankDroid
 {
@@ -17,7 +19,7 @@ namespace BlankDroid
         private FileService _fileService;
         private string _fileName;
         private string _baseDirectory;
-        private string _fullAudioPath;
+        private RecordingMetadata _metadata;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -27,13 +29,24 @@ namespace BlankDroid
             _fileService = new FileService();
             _fileName = Intent.GetStringExtra("FileNameClicked") ?? RecordingContext.filename;
             _baseDirectory = ConfigService.BaseDirectory;
-            _fullAudioPath = _fileService.GetFullPathToRecording(_baseDirectory, _fileName);
-            _audioPlayService = new AudioPlayService(_baseDirectory, _fileName);
             
+            _audioPlayService = new AudioPlayService(_baseDirectory, _fileName);
+            _metadata = _fileService.GetRecordingMetadata(_baseDirectory, _fileName);
+
             AnalysisContext.UpdateContext(_baseDirectory, _fileName);
             SetContentView(Resource.Layout.AnalyseActivity);
             SetupButtons();
-            FindViewById<TextView>(Resource.Id.title).Text = _fullAudioPath.Replace(_baseDirectory,"");
+
+            if (_metadata.StartedAt!=null && _metadata.StartedAt!= default(DateTime))
+            {
+                FindViewById<TextView>(Resource.Id.title).Text = _metadata.StartedAt.ToString("f");
+            }
+            else
+            {
+                var fullAudioPath = _fileService.GetFullPathToRecording(_baseDirectory, _fileName);
+                FindViewById<TextView>(Resource.Id.title).Text = fullAudioPath.Replace(_baseDirectory, "");
+
+            }
             _playing = false;
             SetPlayButtonIcon();
         }
@@ -123,7 +136,7 @@ namespace BlankDroid
             {
                 AnalysisContext.adaptor.UpdateList();
                 Toast.MakeText(ApplicationContext, "Deleted!", ToastLength.Short).Show();
-                Finish();
+                StartActivity(typeof(MainActivity));
             }
             else
             {

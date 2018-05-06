@@ -12,6 +12,7 @@ using Android.Widget;
 using BlankDroid.Services;
 using static Android.Support.V4.View.ViewPager;
 using Android.Content.PM;
+using System.Threading.Tasks;
 
 namespace BlankDroid
 {
@@ -20,11 +21,13 @@ namespace BlankDroid
     {
         //AudioRecordService _audioRecordService;
         FileService _fileService;
+        WaveformService _waveformService;
 
         public RecordingActivity()
         {
             //_audioRecordService = new AudioRecordService();
             _fileService = new FileService();
+            _waveformService = new WaveformService();
         }
 
         protected override void OnCreate(Bundle bundle)
@@ -40,8 +43,18 @@ namespace BlankDroid
             _stopButton.Click += delegate
             {
                 AudioRecordService.Stop();
-                _fileService.SaveNewMetadataFile(RecordingContext.filename, ConfigService.AudioFrequency, ConfigService.AudioBitrate, FactorService.GetContext(), null);
-                UpdateRecordingsList();
+                _fileService.SaveNewMetadataFile(RecordingContext.filename,
+                        RecordingContext.startedAt,
+                        ConfigService.AudioFrequency,
+                        ConfigService.AudioBitrate,
+                        FactorService.GetContext(),
+                        null);
+                Task.Run(async () =>
+                {
+                    await ProcessRecording(ConfigService.BaseDirectory, RecordingContext.filename);
+                });
+                
+                //UpdateRecordingsList();
 
                 StartActivity(typeof(NotesActivity));
             };
@@ -60,6 +73,11 @@ namespace BlankDroid
         private void UpdateRecordingsList()
         {
             AnalysisContext.adaptor.UpdateList();
+        }
+
+        private async Task ProcessRecording(string baseDirectory, string fileName)
+        {
+            await _waveformService.ProcessAndSaveDisplayLines(baseDirectory, fileName);
         }
     }
 }
