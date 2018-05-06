@@ -8,15 +8,17 @@ namespace BlankDroid.Services
     {
         byte[] _playBuffer = null;
         AudioTrack _audioTrack = null;
-        FileService _fileService;
         string _fullPathToAudio;
         private RecordingMetadata _metadata;
+        private MetadataService _metadataService;
+        private AudioFileService _audioFileService;
 
         public AudioPlayService(string baseDirectory, string fileName)
         {
-            _fileService = new FileService();
-            _metadata = _fileService.GetRecordingMetadata(baseDirectory, fileName);
-            _fullPathToAudio = _fileService.GetFullPathToRecording(baseDirectory, fileName);
+            _metadataService = new MetadataService();
+            _audioFileService = new AudioFileService();
+            _metadata = _metadataService.GetRecordingMetadata(baseDirectory, fileName);
+            _fullPathToAudio = _audioFileService.GetFullPathToRecording(baseDirectory, fileName);
         }
 
         public async Task Start()

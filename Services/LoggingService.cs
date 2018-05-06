@@ -22,7 +22,7 @@ namespace BlankDroid.Services
 
         public async Task LogAsync(string message)
         {
-            fileName = DateTime.UtcNow.ToString("dd-MM-yy") + "-Log";
+            fileName = DateTime.Now.ToString("dd-MM-yy") + "-Log";
             await Task.Run(() =>
             {
                 var messageToLog = $"{DateTime.Now.ToLongTimeString()} - {message} { Environment.NewLine}";

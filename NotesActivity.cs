@@ -53,6 +53,12 @@ namespace BlankDroid
             base.OnPause();
         }
 
+        public override void OnBackPressed()
+        {
+            StartActivity(typeof(MainActivity));
+
+        }
+
 
 
 

@@ -10,12 +10,7 @@ namespace BlankDroid.Services
         static AudioRecord _audioRecord;
         static Byte[] _audioBuffer;
         static bool _endRecording;
-        static FileService _fileService = new FileService();
-
-        //public AudioRecordService()
-        //{
-        //    _fileService = new FileService();
-        //}
+        static private AudioFileService _audioFileService = new AudioFileService();
 
         public static async Task Start(string filename)
         {
@@ -48,7 +43,7 @@ namespace BlankDroid.Services
             }
 
 
-            using (var fileStream = new FileStream(_fileService.GetFullPathToNewRecording(filename), FileMode.Create, FileAccess.Write))
+            using (var fileStream = new FileStream(_audioFileService.GetFullPathToNewRecording(filename), FileMode.Create, FileAccess.Write))
             {
                 while (true)
                 {

@@ -16,7 +16,8 @@ namespace BlankDroid
         private ImageButton _playPauseButton;
         private bool _playing;
         private AudioPlayService _audioPlayService;
-        private FileService _fileService;
+        private MetadataService _metadataService;
+        private AudioFileService _audioFileService;
         private string _fileName;
         private string _baseDirectory;
         private RecordingMetadata _metadata;
@@ -25,13 +26,13 @@ namespace BlankDroid
         {
             base.OnCreate(bundle);
             HideTitleBar();
-
-            _fileService = new FileService();
+            
             _fileName = Intent.GetStringExtra("FileNameClicked") ?? RecordingContext.filename;
             _baseDirectory = ConfigService.BaseDirectory;
-            
+            _metadataService = new MetadataService();
+            _audioFileService = new AudioFileService();
             _audioPlayService = new AudioPlayService(_baseDirectory, _fileName);
-            _metadata = _fileService.GetRecordingMetadata(_baseDirectory, _fileName);
+            _metadata = _metadataService.GetRecordingMetadata(_baseDirectory, _fileName);
 
             AnalysisContext.UpdateContext(_baseDirectory, _fileName);
             SetContentView(Resource.Layout.AnalyseActivity);
@@ -43,7 +44,7 @@ namespace BlankDroid
             }
             else
             {
-                var fullAudioPath = _fileService.GetFullPathToRecording(_baseDirectory, _fileName);
+                var fullAudioPath = _audioFileService.GetFullPathToRecording(_baseDirectory, _fileName);
                 FindViewById<TextView>(Resource.Id.title).Text = fullAudioPath.Replace(_baseDirectory, "");
 
             }
@@ -131,7 +132,7 @@ namespace BlankDroid
 
         private void DeleteFile()
         {
-            var deleteSucceeded = _fileService.TryDeleteByFileName(_baseDirectory, _fileName);
+            var deleteSucceeded = _audioFileService.TryDeleteByFileName(_baseDirectory, _fileName);
             if (deleteSucceeded)
             {
                 AnalysisContext.adaptor.UpdateList();

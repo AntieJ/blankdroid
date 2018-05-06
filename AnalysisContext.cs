@@ -9,8 +9,8 @@ namespace BlankDroid
     public static class AnalysisContext
     {
         private static RecordingMetadata _metadata;
-        private static FileService _fileService;
-
+        private static AudioFileService _audioFileService;
+        private static MetadataService _metadataService;
         public static List<Int16> samples = new List<short>();
         public static MainAdaptor adaptor;
         public static string BaseDirectory;
@@ -19,17 +19,17 @@ namespace BlankDroid
 
         public static void UpdateContext(string baseDirectory, string fileName)
         {
-            _fileService = new FileService();
+            _audioFileService = new AudioFileService();
 
-            FullAudioPath = _fileService.GetFullPathToRecording(baseDirectory, fileName);
+            FullAudioPath = _audioFileService.GetFullPathToRecording(baseDirectory, fileName);
             BaseDirectory = baseDirectory;
             FileName = fileName;
         }
 
         public static void UpdateSamples(string baseLocation, string fileName)
         {
-            _fileService = new FileService();
-            _metadata = _fileService.GetRecordingMetadata(baseLocation, fileName);
+            _metadataService = new MetadataService();
+            _metadata = _metadataService.GetRecordingMetadata(baseLocation, fileName);
             UpdateSamples();
         }
 

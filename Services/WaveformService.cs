@@ -9,15 +9,19 @@ namespace BlankDroid.Services
 {
     public class WaveformService
     {
-        private FileService _fileService;
         private LoggingService _loggingService;
         private Dictionary<string, int> retryLog = new Dictionary<string, int>();
         private int retryMaxCount=5;
+        private MetadataService _metadataService;
+        private AudioFileService _audioFileService;
+        private FileService _fileService;
 
         public WaveformService()
         {
-            _fileService = new FileService();
             _loggingService = new LoggingService();
+            _metadataService = new MetadataService();
+            _audioFileService = new AudioFileService();
+            _fileService = new FileService();
         }
 
         public async Task ProcessAndSaveDisplayLines(string baseDirectory, string fileName)
@@ -31,8 +35,8 @@ namespace BlankDroid.Services
                 }
                 else
                 {
-                    var audioPath = _fileService.GetFullPathToRecording(baseDirectory, fileName);
-                    var metadata = _fileService.GetRecordingMetadata(baseDirectory, fileName);
+                    var audioPath = _audioFileService.GetFullPathToRecording(baseDirectory, fileName);
+                    var metadata = _metadataService.GetRecordingMetadata(baseDirectory, fileName);
                     var samples = await GetSampleValues(audioPath, metadata.AudioBitrate);
 
                     var displayLines = GetLinesFromSamples(ConfigService.PixelWidth, ConfigService.YAxis,
@@ -62,6 +66,11 @@ namespace BlankDroid.Services
 
         public SimpleLine[] GetLinesFromSamples(int screenWidth, int yAxis, int chartHeight, List<short> samples)
         {
+            if(samples == null || samples.Count < 1)
+            {
+                return new SimpleLine[] { };
+            }
+
             var stepSize = (int)Math.Ceiling(samples.Count / (decimal)5000);
             var smallBufferArray = GetFilteredArray(samples, stepSize);
             var sampleLines = new SimpleLine[smallBufferArray.Length];
@@ -183,6 +192,11 @@ namespace BlankDroid.Services
             Do this because we don't need that much resolution when displaying
             Consider lowering the sample frequency of recording
             This could be done on file read*/
+
+            if(samples==null || samples.Count < 1)
+            {
+                return new short[] { };
+            }
 
             var filtered = samples.Where((x, i) => i % stepSize == 0).ToList();
 

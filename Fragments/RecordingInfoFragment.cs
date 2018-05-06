@@ -11,12 +11,15 @@ namespace BlankDroid.Fragments
         private string _fullAudioPath;
         private string _fileName;
         private string _directory;
-        FileService _fileService;
+        private MetadataService _metadataService;
+        private AudioFileService _audioFileService;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             _fullAudioPath = AnalysisContext.FullAudioPath;
-            _fileService = new FileService();
+            _metadataService = new MetadataService();
+            _audioFileService = new AudioFileService();
+
             View view = inflater.Inflate(Resource.Layout.RecordingInfoFragment, container, false);
             view.FindViewById<TextView>(Resource.Id.content).Text = GetContent();
            
@@ -25,11 +28,11 @@ namespace BlankDroid.Fragments
 
         private string GetContent()
         {
-            var metadata = _fileService.GetRecordingMetadata($"{ConfigService.BaseDirectory}",$"{AnalysisContext.FileName}");
+            var metadata = _metadataService.GetRecordingMetadata($"{ConfigService.BaseDirectory}",$"{AnalysisContext.FileName}");
 
-            return $"Size: {_fileService.GetFileSizeInKB(ConfigService.BaseDirectory, AnalysisContext.FileName)}kB "+
+            return $"Size: {_audioFileService.GetFileSizeInKB(ConfigService.BaseDirectory, AnalysisContext.FileName)}kB "+
                 "\n" +
-                $"Length: {_fileService.GetAudioFileLengthInSeconds(ConfigService.BaseDirectory, AnalysisContext.FileName)}S" +
+                $"Length: {_audioFileService.GetAudioFileLengthInSeconds(ConfigService.BaseDirectory, AnalysisContext.FileName)}S" +
                 "\n" +
                 $"Frequency: {metadata.AudioFrequency}" +
                 "\n" +

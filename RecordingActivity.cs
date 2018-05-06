@@ -19,15 +19,13 @@ namespace BlankDroid
     [Activity(Label = "BlankDroid", ScreenOrientation = ScreenOrientation.Portrait)]
     public class RecordingActivity : Activity
     {
-        //AudioRecordService _audioRecordService;
-        FileService _fileService;
         WaveformService _waveformService;
+        private MetadataService _metadataService;
 
         public RecordingActivity()
         {
-            //_audioRecordService = new AudioRecordService();
-            _fileService = new FileService();
             _waveformService = new WaveformService();
+            _metadataService = new MetadataService();
         }
 
         protected override void OnCreate(Bundle bundle)
@@ -42,13 +40,8 @@ namespace BlankDroid
 
             _stopButton.Click += delegate
             {
-                AudioRecordService.Stop();
-                _fileService.SaveNewMetadataFile(RecordingContext.filename,
-                        RecordingContext.startedAt,
-                        ConfigService.AudioFrequency,
-                        ConfigService.AudioBitrate,
-                        FactorService.GetContext(),
-                        null);
+                StopRecording();
+
                 Task.Run(async () =>
                 {
                     await ProcessRecording(ConfigService.BaseDirectory, RecordingContext.filename);
@@ -68,6 +61,40 @@ namespace BlankDroid
         protected override void OnPause()
         {
             base.OnPause();
+        }
+
+        public override void OnBackPressed()
+        {
+            RequestStopConfirmation();
+        }
+
+        private void RequestStopConfirmation()
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("Confirm stop");
+            alert.SetMessage("Are you sure you want to stop this recording?");
+            alert.SetPositiveButton("Stop", (senderAlert, args) => {
+                StopRecording();
+                StartActivity(typeof(MainActivity));
+            });
+
+            alert.SetNegativeButton("Cancel", (senderAlert, args) => {
+                Toast.MakeText(this, "Recording...", ToastLength.Short).Show();
+            });
+
+            Dialog dialog = alert.Create();
+            dialog.Show();
+        }
+
+        private void StopRecording()
+        {
+            AudioRecordService.Stop();
+            _metadataService.SaveNewMetadataFile(RecordingContext.filename,
+                    RecordingContext.startedAt,
+                    ConfigService.AudioFrequency,
+                    ConfigService.AudioBitrate,
+                    FactorService.GetContext(),
+                    null);
         }
 
         private void UpdateRecordingsList()
