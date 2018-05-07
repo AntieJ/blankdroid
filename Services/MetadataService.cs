@@ -60,6 +60,13 @@ namespace BlankDroid.Services
             }
         }
 
+        public void SaveNoteToMetadata(string baseDirectory, string fileName, string note)
+        {
+            var metadata = GetRecordingMetadata(baseDirectory, fileName);
+            metadata.Note = note;
+            UpdateMetadataFile(metadata, baseDirectory, fileName);
+        }
+
         public void UpdateMetadataFile(RecordingMetadata metadata, string baseDirectory, string fileName)
         {
             using (var fs = new FileStream(GetFullPathToMetadata(baseDirectory, fileName), FileMode.Open, FileAccess.Write))

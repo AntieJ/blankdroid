@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using Android.App;
-using Android.OS;
-using Android.Widget;
-using System.Threading.Tasks;
-using BlankDroid.Services;
+﻿using Android.App;
 using Android.Content.PM;
+using Android.OS;
+using Android.Views;
+using Android.Widget;
+using BlankDroid.Services;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlankDroid
 {
@@ -13,21 +14,25 @@ namespace BlankDroid
     {
         FileService _fileService;
         WaveformService _waveformService;
+        private MetadataService _metadataService;
 
         public NotesActivity()
         {
             _fileService = new FileService();
             _waveformService = new WaveformService();
+            _metadataService = new MetadataService();
         }
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            HideTitleBar();
 
             SetContentView(Resource.Layout.NotesActivity);
-            FindViewById<TextView>(Resource.Id.title).Text = "How did it go?";
+            FindViewById<TextView>(Resource.Id.title).Text = "Good Morning";
+            FindViewById<TextView>(Resource.Id.title).Gravity = GravityFlags.CenterHorizontal;
 
-            var _resultsButton = FindViewById<Button>(Resource.Id.results);
+            var _resultsButton = FindViewById<ImageButton>(Resource.Id.results);
 
             var values = _fileService.GetFilesFromDirectory(ConfigService.BaseDirectory, ConfigService.AudioFileExtension);
 
@@ -38,6 +43,7 @@ namespace BlankDroid
 
             _resultsButton.Click += delegate
             {
+                SaveNote();
                 StartActivity(typeof(AnalyseActivity));
             };
 
@@ -59,8 +65,10 @@ namespace BlankDroid
 
         }
 
-
-
+        private void HideTitleBar()
+        {
+            RequestWindowFeature(WindowFeatures.NoTitle);
+        }
 
         private async Task ProcessRecordings(string baseDirectory, List<string> fileNames)
         {
@@ -68,6 +76,12 @@ namespace BlankDroid
             {
                 await _waveformService.ProcessAndSaveDisplayLines(baseDirectory, file);
             }
+        }
+
+        private void SaveNote()
+        {
+            var note = FindViewById<EditText>(Resource.Id.noteText).Text;
+            _metadataService.SaveNoteToMetadata(ConfigService.BaseDirectory, RecordingContext.filename, note);
         }
     }
 }

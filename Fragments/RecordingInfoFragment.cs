@@ -9,8 +9,6 @@ namespace BlankDroid.Fragments
     public class RecordingInfoFragment : Fragment
     {
         private string _fullAudioPath;
-        private string _fileName;
-        private string _directory;
         private MetadataService _metadataService;
         private AudioFileService _audioFileService;
 

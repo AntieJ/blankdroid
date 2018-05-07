@@ -13,6 +13,8 @@ using BlankDroid.Services;
 using static Android.Support.V4.View.ViewPager;
 using Android.Content.PM;
 using System.Threading.Tasks;
+using Android.Views.Animations;
+using System.Threading;
 
 namespace BlankDroid
 {
@@ -31,11 +33,13 @@ namespace BlankDroid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            HideTitleBar();
             Window.AddFlags(WindowManagerFlags.KeepScreenOn);
            
             SetContentView(Resource.Layout.RecordingActivity);
-            FindViewById<TextView>(Resource.Id.title).Text = "ZZZ.... Sleep well... :)";
-
+            FindViewById<TextView>(Resource.Id.title).Text = "Goodnight";
+            FindViewById<TextView>(Resource.Id.title).Gravity = GravityFlags.CenterHorizontal;
+            SetupTitleFade();
            var _stopButton = FindViewById<Button>(Resource.Id.stopRecording);
 
             _stopButton.Click += delegate
@@ -50,6 +54,7 @@ namespace BlankDroid
                 //UpdateRecordingsList();
 
                 StartActivity(typeof(NotesActivity));
+                OverridePendingTransition(Resource.Animation.alphaIn, Resource.Animation.alphaOut);
             };
         }
 
@@ -66,6 +71,38 @@ namespace BlankDroid
         public override void OnBackPressed()
         {
             RequestStopConfirmation();
+        }
+
+        private void SetupTitleFade()
+        {
+            var myView = FindViewById<TextView>(Resource.Id.title);
+
+            var fadeOut = new AlphaAnimation(1, 0);
+            fadeOut.Interpolator = new DecelerateInterpolator();
+            fadeOut.Duration = 1000;
+
+            var fadeIn = new AlphaAnimation(0, 1);
+            fadeIn.Interpolator = new AccelerateInterpolator();
+            fadeIn.Duration = 1000;
+            
+            fadeIn.AnimationEnd += (s, e) =>
+            {
+                ThreadPool.QueueUserWorkItem(state =>
+                {
+                    Thread.Sleep(1000); //wait 2 sec
+                    RunOnUiThread(() => {
+                        myView.StartAnimation(fadeOut);
+                        
+                    }); //fade out the view
+                });
+            };
+
+            fadeOut.AnimationEnd += (s, e) =>
+            {
+                myView.Alpha = 0;
+            };
+
+            myView.StartAnimation(fadeIn);
         }
 
         private void RequestStopConfirmation()
@@ -105,6 +142,11 @@ namespace BlankDroid
         private async Task ProcessRecording(string baseDirectory, string fileName)
         {
             await _waveformService.ProcessAndSaveDisplayLines(baseDirectory, fileName);
+        }
+
+        private void HideTitleBar()
+        {
+            RequestWindowFeature(WindowFeatures.NoTitle);
         }
     }
 }

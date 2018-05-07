@@ -4,5 +4,6 @@
     <SelectedDevice>Google Pixel</SelectedDevice>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
     <DefaultDevice>Android_Accelerated_x86</DefaultDevice>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
 </Project>

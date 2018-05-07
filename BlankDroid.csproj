@@ -98,8 +98,8 @@
     <Compile Include="NotesActivity.cs" />
     <Compile Include="RecordingActivity.cs" />
     <Compile Include="RecordingContext.cs" />
-    <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Services\AudioFileService.cs" />
     <Compile Include="Services\AudioPlayService.cs" />
     <Compile Include="Services\AudioRecordService.cs" />
@@ -171,6 +171,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\stars.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\sunrise.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\anim\alphaIn.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\anim\alphaOut.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\chevronRight.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Annotations.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Annotations.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets')" />

@@ -2,17 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/sunrise">
   <TextView
     android:id="@+id/title"
         android:text=""
         android:textSize="15pt"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-  <Button
-      android:id="@+id/results"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:text="Show me results..." />
+        android:layout_height="wrap_content"
+        />
+  <EditText
+        android:id="@+id/noteText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="How did you sleep?" />
+  <ImageButton
+    android:id="@+id/results"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/chevronRight"
+    android:background="@android:color/background_light"
+    android:layout_gravity="center_horizontal"
+    />
 
 </LinearLayout>
